@@ -1,0 +1,7 @@
+names:
+- '0'
+- '1'
+nc: 2
+test: test/images
+train: /kaggle/input/bvddata2/train/images
+val: /kaggle/input/bvddata2/valid/images

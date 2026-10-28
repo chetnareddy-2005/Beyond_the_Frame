@@ -1,0 +1,71 @@
+BOREAS Objects-V1 Radar-to-visual-ground-truth validation
+Selected interval (inclusive, microseconds): 1598986289111738 - 1598986292111738
+Sequence: boreas-objects-v1
+Input root: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\datasets\boreas_radar_validation
+
+Official calibration convention verified from pyboreas localization:
+  T_enu_radar = T_enu_lidar @ inverse(T_radar_lidar)
+  T_enu_camera = T_enu_lidar @ inverse(T_camera_lidar)
+For an azimuth acquired at time t_r and an RGB frame at t_c, the implemented point chain is p_enu = T_enu_lidar(t_r) @ inverse(T_radar_lidar) @ p_radar, then p_camera = T_camera_lidar @ inverse(T_enu_lidar(t_c)) @ p_enu.
+Camera projection uses official P_camera.txt.
+Static calibration direction is also checked numerically by comparing the calibrated camera/Radar world poses against their independent sensor pose-table poses; residuals follow in the summary.
+
+Candidate extraction is a deterministic 2D local-maximum filter over the official normalized polar intensity scan, gated by valid azimuth rows and the stated intensity/range thresholds. Output candidates are NOT Radar object detections. Range is (range_bin + 0.5) * official pyboreas resolution, following the bin-center convention in radar_polar_to_cartesian; the official scan loader's near-range zeroing is retained and no scaling or unavailable sequence-specific range correction is invented.
+Radar candidate beam timestamps are used individually; candidates outside the configured temporal tolerance are excluded for each camera frame. Camera/Radar scan timestamp proximity is only a pairing gate, not proof of spatial association.
+Tracking boxes are loaded and time/pose-associated by the official pyboreas Camera.get_bounding_boxes path. The comparison uses their projected 2D ground-truth boxes, not YOLO output or ByteTrack tracks.
+
+Counts and settings:
+TOTAL_CAMERA_FRAMES = 38
+TOTAL_RADAR_SCANS = 12
+TOTAL_OBJECT_LABEL_FRAMES = 15
+TIMESTAMP_PAIRS = 37
+TIMESTAMP_MISMATCH_CAMERA_FRAMES = 1
+TIMESTAMP_DELTA_MIN = 1.386
+TIMESTAMP_DELTA_MEDIAN = 60.542
+TIMESTAMP_DELTA_MAX = 123.493
+TIMESTAMP_SIGNED_DELTA_MIN = -123.493
+TIMESTAMP_SIGNED_DELTA_MAX = 118.15
+CANDIDATE_TIME_DELTA_MIN = 3.1
+CANDIDATE_TIME_DELTA_MEDIAN = 94.262
+CANDIDATE_TIME_DELTA_MAX = 149.152
+OBJECTS_WITH_RADAR_ASSOCIATION = 12
+OBJECTS_WITHOUT_RADAR_ASSOCIATION = 1182
+NO_RADAR_ASSOCIATION = 331
+TIMESTAMP_MISMATCH_OBJECTS = 33
+VALID_PROJECTIONS = 43
+RADAR_CANDIDATE_PROJECTIONS_OUT_OF_FOV = 58
+INVALID_RADAR_PROJECTIONS = 234
+CANDIDATES_WITHOUT_POSE_COVERAGE = 8
+OUT_OF_FOV_COUNT = 269
+INVALID_PROJECTION_COUNT = 549
+ASSOCIATION_ROWS = 1194
+TOTAL_EXTRACTED_POLAR_INTENSITY_CANDIDATES = 253
+EXTRACTION_INTENSITY_THRESHOLD = 0.4
+EXTRACTION_MINIMUM_RANGE_M = 2.5
+MAXIMUM_SCAN_DELTA_SECONDS = 0.15
+MAXIMUM_CANDIDATE_DELTA_SECONDS = 0.15
+BBOX_MARGIN_PIXELS = 8.0
+RESULTS_CSV = boreas_radar_association_results.csv
+VISUALIZATION = boreas_radar_projection_visualization.png
+VALIDATION_PIPELINE_EXECUTION = PASS
+BOREAS_RADAR_ASSOCIATION = INCONCLUSIVE
+CAMERA_POSE_RESIDUAL_TRANSLATION_MEDIAN_M = 0.001269480105551101
+CAMERA_POSE_RESIDUAL_TRANSLATION_MAX_M = 0.09337653627940305
+CAMERA_POSE_RESIDUAL_ROTATION_MAX_DEG = 0.0
+RADAR_POSE_RESIDUAL_TRANSLATION_MEDIAN_M = 0.0013610627520074434
+RADAR_POSE_RESIDUAL_TRANSLATION_MAX_M = 0.08497036734752456
+RADAR_POSE_RESIDUAL_ROTATION_MAX_DEG = 0.13673032810522842
+
+Metric definitions:
+  TIMESTAMP_DELTA_* are absolute camera-frame to matched Radar-scan filename timestamp deltas (ms).
+  CANDIDATE_TIME_DELTA_* are absolute candidate beam acquisition to camera-frame deltas (ms), after the configured temporal gate.
+  VALID_PROJECTIONS counts temporally accepted extracted candidate projections inside the camera image, summed over camera frames.
+  OUT_OF_FOV_COUNT and INVALID_PROJECTION_COUNT count ground-truth object-frame boxes.
+  OBJECTS_WITHOUT_RADAR_ASSOCIATION includes all non-ASSOCIATED rows; statuses are separately tallied.
+  The pipeline execution passes, but the overall Radar-to-object association is INCONCLUSIVE: the provided interval has no Radar object-detection/association ground truth with which to verify that an intensity candidate belongs to the nearby persistent object UUID.
+
+Limitations:
+  BOREAS supplies raw Radar intensity, not per-object Radar detection ground truth. This validates deterministic candidate extraction, timestamp-aware calibrated projection, and geometric comparison to official RGB-frame GT boxes; it does not establish Radar detector accuracy, identity correctness, or ByteTrack track association performance.
+  The selected pose-table coverage does not extend to the earliest azimuth timestamps in the first Radar scan. Candidate points without a supplied LiDAR pose are retained as invalid projections; no pose extrapolation is used.
+  No YOLO, ByteTrack, VLM, Thermal, or fusion model was run.
+  No project pipeline files were changed.

@@ -1,0 +1,30 @@
+digraph TransformerEncoder {
+	Input [label="Input Tensor [B, C, H, W]" fillcolor=lightblue shape=parallelogram style=filled]
+	ConvIn [label="Conv2D Projection (Optional)" shape=box]
+	Reshape [label="Reshape to [B, H*W, C]" shape=box]
+	MHA [label="Multi-Head Attention" fillcolor=lightgray shape=ellipse style=filled]
+	Dropout1 [label=Dropout shape=box]
+	Add1 [label="Residual Connection" shape=diamond]
+	Norm1 [label=LayerNorm shape=box]
+	MLP [label="Feed-Forward MLP
+(Linear → GELU → Linear)" fillcolor=lightgray shape=ellipse style=filled]
+	Dropout2 [label=Dropout shape=box]
+	Add2 [label="Residual Connection" shape=diamond]
+	Norm2 [label=LayerNorm shape=box]
+	ReshapeBack [label="Reshape to [B, C, H, W]" shape=box]
+	ConvOut [label="Conv2D Projection (Optional)" shape=box]
+	Output [label="Output Tensor [B, C, H, W]" fillcolor=lightblue shape=parallelogram style=filled]
+	Input -> ConvIn
+	ConvIn -> Reshape
+	Reshape -> MHA
+	MHA -> Dropout1
+	Dropout1 -> Add1
+	Add1 -> Norm1
+	Norm1 -> MLP
+	MLP -> Dropout2
+	Dropout2 -> Add2
+	Add2 -> Norm2
+	Norm2 -> ReshapeBack
+	ReshapeBack -> ConvOut
+	ConvOut -> Output
+}

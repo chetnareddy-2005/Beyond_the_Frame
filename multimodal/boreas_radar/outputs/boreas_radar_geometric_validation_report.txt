@@ -1,0 +1,64 @@
+BOREAS Radar geometric consistency validation
+Sequence: boreas-objects-v1
+Inclusive interval (microseconds): 1598986289111738 - 1598986292111738
+Data root: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\datasets\boreas_radar_validation
+
+Ground truth: official BOREAS Objects-V1 timestamped 3D tracking labels; UUID, class, dimensions, location, yaw/orientation, and point-count fields are read via the unmodified official pyboreas BoundingBoxes parser.
+Coordinate chain: p_enu(label time) = T_enu_lidar(label time) @ p_lidar; T_enu_radar(t) = T_enu_lidar(t) @ inverse(T_radar_lidar); p_radar(t) = inverse(T_enu_radar(t)) @ p_enu(t). Object centers are linearly interpolated in ENU between adjacent same-UUID tracking labels only; no extrapolation is performed, and interpolation requires the UUID to be present in both adjacent label frames. The box extent is transformed using the official label box corners, with label-time orientation held fixed and its center translated by interpolated GT motion.
+Radar candidate range and azimuth are the actual extracted peak's bin-center range and per-azimuth value/time from the official Radar loader. Objects are within Radar FOV when their radial box extent overlaps [minimum detectable range, maximum scan range]; the rotating BOREAS Radar is treated as 360-degree.
+Association requires BOTH candidate-center range error <= the projected 3D box range radius + configured range padding, AND wrapped azimuth error <= the box angular half-extent + configured angular padding. Candidate assignment is one-to-one per label frame, prioritizing normalized polar error then intensity and stable identifiers.
+CSV timestamp_delta_ms is absolute camera-to-Radar filename timestamp difference; label_radar_timestamp_delta_ms is the label-to-Radar difference used for scan selection. Both are reported separately.
+Associated CSV rows preserve expected and candidate polar coordinates, range/azimuth errors, associated_radar_count, and the extracted candidate's deterministic zero-based index in that Radar scan's ordered candidate list. The index is scan-local, not a persistent Radar object identity. association_distance_px is blank because this geometric polar validator does not compute image-pixel distance.
+These are geometric consistency associations against object ground truth, not Radar detection ground truth. No Radar precision/recall or verified Radar-to-ByteTrack identity is claimed.
+
+Statistics and configuration:
+OBJECTS_EVALUATED = 486
+OBJECTS_IN_RADAR_FOV = 468
+ASSOCIATED_OBJECTS = 57
+NON_ASSOCIATED_OBJECTS = 411
+ASSOCIATION_RATE = 0.12179487179487179
+ASSOCIATION_RATE_PERCENT = 12.179487179487179
+MEDIAN_RANGE_ERROR_M = 1.8674495960779218
+MAX_RANGE_ERROR_M = 5.169243574011794
+MEDIAN_AZIMUTH_ERROR_DEG = 0.8482303975953615
+MAX_AZIMUTH_ERROR_DEG = 7.00966912512578
+TIMESTAMP_MISMATCH_OBJECTS = 0
+OUT_OF_RADAR_FOV_OBJECTS = 0
+INVALID_GEOMETRY_OBJECTS = 18
+TIMESTAMP_PAIRS = 15
+TIMESTAMP_DELTA_MIN_MS = 8.156
+TIMESTAMP_DELTA_MEDIAN_MS = 71.833
+TIMESTAMP_DELTA_MAX_MS = 159.021
+LABEL_RADAR_TIMESTAMP_DELTA_MIN_MS = 2.516
+LABEL_RADAR_TIMESTAMP_DELTA_MEDIAN_MS = 72.41
+LABEL_RADAR_TIMESTAMP_DELTA_MAX_MS = 125.648
+TOTAL_CAMERA_FRAMES = 38
+TOTAL_RADAR_SCANS = 12
+TOTAL_OBJECT_LABEL_FRAMES = 15
+TOTAL_EXTRACTED_INTENSITY_CANDIDATES_IN_MATCHED_SCANS = 253
+CANDIDATE_GT_TRAJECTORY_UNAVAILABLE_COUNT = 1002
+OBJECTS_WITHOUT_CANDIDATE_GEOMETRY = 0
+NO_RADAR_ASSOCIATION_OBJECTS = 411
+RANGE_PADDING_M = 2.0
+AZIMUTH_PADDING_DEGREES = 1.0
+MAXIMUM_SCAN_DELTA_SECONDS = 0.15
+MAXIMUM_CANDIDATE_DELTA_SECONDS = 0.4
+MINIMUM_RADAR_RANGE_M = 2.5
+MAXIMUM_RADAR_RANGE_M = 200.2262
+INTENSITY_THRESHOLD = 0.4
+CANDIDATE_ID_AVAILABLE = YES - deterministic zero-based index within each scan's ordered candidate list; not a persistent object identity
+ASSOCIATION_DISTANCE_PX = NOT_COMPUTED - this validator uses Radar polar gates
+RESULTS_CSV = boreas_radar_geometric_validation.csv
+VISUALIZATION = boreas_radar_geometric_polar_visualization.png
+VALIDATION_SCOPE = Geometric consistency against BOREAS 3D object ground truth
+RADAR_TRACK_ASSOCIATION = INCONCLUSIVE
+BOREAS_RADAR_GEOMETRIC_VALIDATION = PASS
+
+Association status meanings:
+  ASSOCIATED: an extracted Radar intensity candidate met both polar gates.
+  NO_RADAR_ASSOCIATION: object lies in Radar FOV, but no candidate met both gates.
+  OUT_OF_RADAR_FOV: the 3D object extent lies outside the scan's radial coverage.
+  TIMESTAMP_MISMATCH: no Radar scan falls within the configured label-time gate.
+  INVALID_GEOMETRY: required GT trajectory or timestamped sensor pose was unavailable/non-finite.
+
+Interpretation: successful geometric overlap is not independent Radar object detection truth. Radar-track association remains INCONCLUSIVE until an independent Radar detection/identity reference is available.

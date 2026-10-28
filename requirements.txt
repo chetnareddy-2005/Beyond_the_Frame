@@ -1,0 +1,2 @@
+-r base_detector/yolov5_ghostnet_AFNO/requirements.txt
+cryptography>=42,<47

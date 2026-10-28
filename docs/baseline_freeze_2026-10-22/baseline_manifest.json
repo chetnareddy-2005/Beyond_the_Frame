@@ -1,0 +1,1568 @@
+{
+  "schema_version": 1,
+  "title": "Phase 1 baseline freeze",
+  "frozen_at_local": "2026-10-22T14:46:19+05:30",
+  "project_root": "C:\\Users\\Ranik\\OneDrive\\Desktop\\Behind_the_Frame",
+  "version_control": {
+    "git_repository_present": false,
+    "commit_id": null,
+    "method": "No Git history is present at the project root. Reproducible per-file SHA-256 inventory and aggregate digest are used as the code/config baseline."
+  },
+  "source_snapshot": {
+    "included_roots": [
+      "backend",
+      "base_detector",
+      "evidence",
+      "experiments",
+      "frontend",
+      "fusion",
+      "multimodal",
+      "reliability",
+      "temporal",
+      "tracking",
+      "vlm",
+      "tools"
+    ],
+    "included_root_files": "Files at project root matching the recorded source/config extensions plus .gitignore/.gitattributes",
+    "included_extensions": [
+      ".py",
+      ".js",
+      ".mjs",
+      ".cjs",
+      ".html",
+      ".css",
+      ".yaml",
+      ".yml",
+      ".json",
+      ".toml",
+      ".cfg",
+      ".ini",
+      ".txt",
+      ".ps1",
+      ".bat",
+      ".sh"
+    ],
+    "excluded_generated_directory_names": [
+      "__pycache__",
+      ".pytest_cache",
+      ".test-tmp",
+      ".thermal-package-staging",
+      "node_modules",
+      ".venv",
+      "venv"
+    ],
+    "file_count": 274,
+    "aggregate_sha256": "fddffc8e095962b4ee6cce3f88359a50b27e74f1b0edbbe9ba3155d501b7b8b7",
+    "files": [
+      {
+        "path": ".gitignore",
+        "bytes": 118,
+        "sha256": "444ad69635629fc385c93311f23a2215618a36ab64e3cc46228d5544e168952b"
+      },
+      {
+        "path": "backend/__init__.py",
+        "bytes": 68,
+        "sha256": "313a6f315ab6d4243477a5135544c3623b8bcd7f4b2868a3879473859f36dc4a"
+      },
+      {
+        "path": "backend/app.py",
+        "bytes": 148017,
+        "sha256": "af86f104956ea5202c23b662603fb025bcbdbf3ad1c11998ca0ed37609973e54"
+      },
+      {
+        "path": "backend/auth.py",
+        "bytes": 15965,
+        "sha256": "d0757f7ace8fb2be8a71cab6e346c85b26af012648667f054e3ff5d94ab9ab04"
+      },
+      {
+        "path": "backend/config.py",
+        "bytes": 2831,
+        "sha256": "40afa235183ee31e444d84e77a794e96cde5a250903df73d367358bdc9ae5a81"
+      },
+      {
+        "path": "backend/detection.py",
+        "bytes": 17270,
+        "sha256": "0f428df6b6059ff03e33351617cda34557201a41e1a4a56b205690965dd6537d"
+      },
+      {
+        "path": "backend/device.py",
+        "bytes": 258,
+        "sha256": "8302a804d4af4982f94f018e4d6fc8cd2a635c5c0f3f67942fe178a7e16b6973"
+      },
+      {
+        "path": "backend/frames.py",
+        "bytes": 14581,
+        "sha256": "dd30f62bc9769d8c8793ddef4cbd8d827800fbb7c54c3258fd6360d0dac0e367"
+      },
+      {
+        "path": "backend/input_preparation.py",
+        "bytes": 18694,
+        "sha256": "9eea7a205fcf69897169272c8b7c4e19c3638817fb97ea4d62ccf7a9f98798b5"
+      },
+      {
+        "path": "backend/run_pipeline.py",
+        "bytes": 56896,
+        "sha256": "3894fd66bbead0b3ff98911f27fe151cd9ebd5266de688455131b1766f6dad1a"
+      },
+      {
+        "path": "backend/runs.py",
+        "bytes": 51013,
+        "sha256": "58793e178d7daf7668064c3e92fed96835da2b6372365b031516f58184f913bf"
+      },
+      {
+        "path": "backend/server.py",
+        "bytes": 1659,
+        "sha256": "8321828abf15f2dfc220174d10972b1fa11891b80f3acc0b266dac097ab68efd"
+      },
+      {
+        "path": "backend/temporal_analysis.py",
+        "bytes": 12519,
+        "sha256": "814fe4e4b20898423a5445dafe9e6b38f5cd7cc1dc0da7d067432b5fccb34178"
+      },
+      {
+        "path": "backend/tests/__init__.py",
+        "bytes": 26,
+        "sha256": "47ed7187564790758e8d2069b9e9cefb25bb1c17da045019e6fd05009dbf382f"
+      },
+      {
+        "path": "backend/tests/test_api.py",
+        "bytes": 17665,
+        "sha256": "c23558d4301abbe387e7551d28ec9a821162b15a04c52a8e33f89cbc592797ee"
+      },
+      {
+        "path": "backend/tests/test_auth.py",
+        "bytes": 7597,
+        "sha256": "64eeba98f5b08f436d3d925cbc3d9343d90a3893866c5a6017393fd5dae338ef"
+      },
+      {
+        "path": "backend/tests/test_detection.py",
+        "bytes": 22193,
+        "sha256": "3aa95623e89a15588ff074fbc160d09fda54ef1c4bbcd3be82140fab29395fe6"
+      },
+      {
+        "path": "backend/tests/test_device.py",
+        "bytes": 14156,
+        "sha256": "10af133a77612aca5da56d2dd424037913a326ed1d145fa903363de54fa6e0d2"
+      },
+      {
+        "path": "backend/tests/test_evidence_ledger.py",
+        "bytes": 4603,
+        "sha256": "66c17246421b1a46698922a754f4624400028c851d001078904fb3897004d3a0"
+      },
+      {
+        "path": "backend/tests/test_frames.py",
+        "bytes": 18642,
+        "sha256": "c0a2b183a7de732dfe19603ad03e507ac9c22ffc8e8bbb95f83835efbe6bb8ac"
+      },
+      {
+        "path": "backend/tests/test_input_preparation.py",
+        "bytes": 23582,
+        "sha256": "464543564f5d1f7d21031fbc8fbd47de9ec54018ef7beaf506d9291a238b6337"
+      },
+      {
+        "path": "backend/tests/test_phase10.py",
+        "bytes": 5269,
+        "sha256": "abcb0271ee7d8fada94f9ae8ce40d31d67bbf8ad5f3a54f92a1d816f8a4e5555"
+      },
+      {
+        "path": "backend/tests/test_runs.py",
+        "bytes": 62386,
+        "sha256": "fb434ca5278d50dab9cb5d704fadb10af60255f3a8d4021194b013270f4e5445"
+      },
+      {
+        "path": "backend/tests/test_source_video_ids.py",
+        "bytes": 3495,
+        "sha256": "42bb6d0da1cf70614e981ece4680a45cd4552bcfb387ffb2acd7496930bffc7c"
+      },
+      {
+        "path": "backend/tests/test_temporal_analysis.py",
+        "bytes": 6942,
+        "sha256": "e565d3a1123533a4b71e538cc4f8961ded8d49a99a2858fe6dac7b8f6cd2ca74"
+      },
+      {
+        "path": "backend/tests/test_thermal_run_pipeline.py",
+        "bytes": 26425,
+        "sha256": "4b2d6de19e88dd5bbc5fb23a6cdcde8a5f18b1b645600f8911ee387a9b49274b"
+      },
+      {
+        "path": "backend/tests/test_tracking.py",
+        "bytes": 22079,
+        "sha256": "a2aec5e9ba8073938ffdec161bf3c11de598d3a4447322dc107feaacc8f95318"
+      },
+      {
+        "path": "backend/tracking.py",
+        "bytes": 8668,
+        "sha256": "c2e7c691949e5dfd5cf35c88c9e10b0f40fc96464b3bb926f2090398c7bf4d06"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/benchmarks.py",
+        "bytes": 14440,
+        "sha256": "eab275ad189b9b3f0c2f26c74942378c421887e4df4bbbf5638605d5cf5e0476"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/check.py",
+        "bytes": 1295,
+        "sha256": "6a33309dabe6cae41cf443dcf5920fbfade9e61125764fdde333fadd030ab33f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/classify/predict.py",
+        "bytes": 12363,
+        "sha256": "fd05f6677c7f5a953f784f2b9769108bae2079af49895990b6e134c668447203"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/classify/train.py",
+        "bytes": 16898,
+        "sha256": "a2f459bb7a0016034cb827fc96c6e3d96ec2c56b909547cace78ac4ba537fbc7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/classify/val.py",
+        "bytes": 8407,
+        "sha256": "c322056cd2c6b22a0f255d660a98221410123a8e393147ee94720a222cc88d94"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/CMD.txt",
+        "bytes": 2202,
+        "sha256": "f1fcbd2bdf485bd153b281ad6313538ca99bc02a411078e032c21342399dfa81"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data.yaml",
+        "bytes": 134,
+        "sha256": "6626fed73b2e5704fcdadc075be3f4e02b9866fbe12bea08df0e8a73c28fd7eb"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/Argoverse.yaml",
+        "bytes": 2825,
+        "sha256": "883808746c937cc315e503565e1ee69c9dfc42fc4e1502e75d733e196b729706"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/coco.yaml",
+        "bytes": 2631,
+        "sha256": "b4b98eed43e388fe38e05626ab08f4117c42426740393e9d57a0e0640768fc04"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/coco128-seg.yaml",
+        "bytes": 2028,
+        "sha256": "33faf9ded38663814adb7ac3be839ce766096e982758d1676f6e866fe12abfa0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/coco128.yaml",
+        "bytes": 2012,
+        "sha256": "329e554b274a7d799a6db69c9c2b3da2685687c6bfab1687555c46bcdeddfdc0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/GlobalWheat2020.yaml",
+        "bytes": 1962,
+        "sha256": "9b7d1f04ad41e4760eee973b14f8223b8f83544360641c5d6ad8324210d64c20"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.no-augmentation.yaml",
+        "bytes": 1716,
+        "sha256": "43ac68ffe9ead35a403d9cb67da804f1f120f58252c121d17c7bf7ae471b5688"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.Objects365.yaml",
+        "bytes": 733,
+        "sha256": "daf8c2513b784b674db2cc40b0158a0f1a7364552c0e2556d271856637190aff"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.scratch-high.yaml",
+        "bytes": 1715,
+        "sha256": "7269618ca9f5c5e211e846a621136efa99498b260db2fa8db3a753834af157ac"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.scratch-low.yaml",
+        "bytes": 1727,
+        "sha256": "4d9d49a5f95cb883ec26c203c508c98fa741f35bd5c5029d004d918c45ba00c5"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.scratch-med.yaml",
+        "bytes": 1717,
+        "sha256": "80dc98686657a4f87c5a97fdc52ea50d0b3928464e426ad45e8499c72112e5d8"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/hyps/hyp.VOC.yaml",
+        "bytes": 1222,
+        "sha256": "e6030855db36c6d1d7f240b4819c89f32c78e5acb40b42391da999f3e153ba20"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/ImageNet.yaml",
+        "bytes": 19911,
+        "sha256": "e74595eab3ba8cdbc85548233060ac1da41a1e082cc0424d2f95224b0226e32a"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/ImageNet10.yaml",
+        "bytes": 987,
+        "sha256": "cb2c9cf519dd9f44738bbabcab0cd54e409df49a32987c369cac28138019a113"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/ImageNet100.yaml",
+        "bytes": 2793,
+        "sha256": "e6561b9086f2a91bb1fea9739ad39aac3aa40f3a0a98c27140554fc87576eb8f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/ImageNet1000.yaml",
+        "bytes": 19913,
+        "sha256": "63e9b40717d022e86b051896886bcce3203d8b8b906886e14fcb273976970571"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/Objects365.yaml",
+        "bytes": 9660,
+        "sha256": "67405575a2a14b7209c58c313a1aaebeca86caf3f55cb0ecc9ad0174253cd81a"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/download_weights.sh",
+        "bytes": 663,
+        "sha256": "89c147aebb9b6b7a780760d3801180d058cc5a39c39ca868dc6ec8dccba8d5eb"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_coco.sh",
+        "bytes": 1623,
+        "sha256": "26ee3be9d513fdbf0a3dc1fd80c5376a398618bef3221383df2b33f775094c8a"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_coco128.sh",
+        "bytes": 636,
+        "sha256": "a6103a1391342ae07e6b81bbd65c0dea07c9ed9d54e4bda2e166466844d8f1c1"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_imagenet.sh",
+        "bytes": 1723,
+        "sha256": "cf229b0456c50549f394ab86019cb25cf00c0d81561f4cd008cb24815cf9db59"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_imagenet10.sh",
+        "bytes": 763,
+        "sha256": "9300da11ef80b1180ba3019f925f497b3f85e7ce1fd5ff637165f6bed31275a7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_imagenet100.sh",
+        "bytes": 767,
+        "sha256": "c683723101fb6b84a5afa14460b6832e3ea203812cc1abcc53c038b9a8a722cf"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/scripts/get_imagenet1000.sh",
+        "bytes": 771,
+        "sha256": "b59b3f2893c0ec743256e6a90c740f1bc16ee9df74149ec1402c183bbb5c2230"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/SKU-110K.yaml",
+        "bytes": 2412,
+        "sha256": "3735fb390c852d389e1bb607fe37003f2ce5104d91d1a7a8a951521219cd4105"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/VisDrone.yaml",
+        "bytes": 3067,
+        "sha256": "58c4a22ccfbad3c12a5e85b2779651f0f2ae18783aa9b15f8839d68151c4c50c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/VOC.yaml",
+        "bytes": 3617,
+        "sha256": "d11fd8cba432695c75edf4baa3bea0b455c0d6db5bdd30017c663ba642f872f4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/data/xView.yaml",
+        "bytes": 5342,
+        "sha256": "c5db8e5358e36a415dd25725e6a2ef9188ab0434c627da7f99d450382fe8f34c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/datasets_baseline.yaml",
+        "bytes": 181,
+        "sha256": "3f59c5329883484d70ba299a0059b52e29b539e6b07a58fcdbe63d7b57cad225"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/datasets_windows.yaml",
+        "bytes": 133,
+        "sha256": "f2f909106a00e8240f79a3bfc63924a22771c22aee9d20fdae8af3241ca58d74"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/detect.py",
+        "bytes": 28261,
+        "sha256": "f2df7d38b1301bb799d4f8ca9104348c36268ae57dd3a274ae61579744217f11"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/export.py",
+        "bytes": 70346,
+        "sha256": "f3eb03825d0afce85c4b41ae2785776a105e1179bfbe2e17be4d7701d31287f9"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/GFLOPs.py",
+        "bytes": 556,
+        "sha256": "3d290d7adbe55a397f6d714329946ceeb69ca1bdb9a44de6f3e7a134a0aaa422"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/hubconf.py",
+        "bytes": 24504,
+        "sha256": "9721348340338273b3bab8d457005230435183cc2c7d475a10ed07072dce300d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/__init__.py",
+        "bytes": 71,
+        "sha256": "7cd29367640feb4566385a2e553261a0ca258b31f0b94907a0cdf1e5197e8b9e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/common.py",
+        "bytes": 70970,
+        "sha256": "732a12820f61094a37bbb2fb573cd4030b265d3556c0cd7c9d21bc3eadb50078"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/experimental.py",
+        "bytes": 5329,
+        "sha256": "7bf0e3ee4277c5a648a074f12948af1069c40de20860b67d725c16db5c05c47f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/anchors.yaml",
+        "bytes": 3420,
+        "sha256": "c2aaf1475e1dec15a3cf00f92931c09c5965060f8e97729a421b756fc5695d5e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov3-spp.yaml",
+        "bytes": 1667,
+        "sha256": "df8f36f7cba5502a20e41bfd86deabfbea56cc5b46b52dbfb12f9339bca2d692"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov3-tiny.yaml",
+        "bytes": 1314,
+        "sha256": "eacfe311f7322de31c8362101a9e4d19389e00d565c335bf6f97a7c79b75834d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov3.yaml",
+        "bytes": 1658,
+        "sha256": "4240f30af13b6ed7337c8f7969da132076cbbbaa095de8a0870d3de8d6915e33"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-bifpn.yaml",
+        "bytes": 1515,
+        "sha256": "c17ed158254c91a4f1cd34ad28fd1b7954d71d5c6559d7a10da3b618c067d2ae"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-fpn.yaml",
+        "bytes": 1298,
+        "sha256": "edbccfc74fbded3ced8a41f52b4f2e733f04268daed20a2912eab30230167f8b"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-p2.yaml",
+        "bytes": 1781,
+        "sha256": "2bf4095c168c6ac7f382355612897e6df4e45350d1621a225abfe1192b90f0cc"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-p34.yaml",
+        "bytes": 1308,
+        "sha256": "095ab4777c6bfe16a7bae126c6f7192f7d79f08a84c24802120e38dcb9081e91"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-p6.yaml",
+        "bytes": 1838,
+        "sha256": "85757c7666e86c1062e6b7ec3ba3d2d7539b0ab0f0d800b04b003bf5b3b09f3e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-p7.yaml",
+        "bytes": 2234,
+        "sha256": "590aed1cc6e5673f818e0a1fdf39408a3533ae234ffd5aeb5512dd7a9158b8c0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5-panet.yaml",
+        "bytes": 1499,
+        "sha256": "01a186081f399fd4ff5fb719ce206bc14b6c836c8f0ef67151aab579e532151e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5l6.yaml",
+        "bytes": 1922,
+        "sha256": "81a0fd42560573290a84fb9ad7477be701c415cfa47453490063e39c6e31b0d9"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5m6.yaml",
+        "bytes": 1924,
+        "sha256": "fdffdd281f795946a0e85b6679d306b9cc43f1b3eace4f29424742f2b7aac920"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5n6.yaml",
+        "bytes": 1924,
+        "sha256": "5961307e1734cc482343b1a1cd4df8282d9df971f065e3a609f70eef025a3a4f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5s-ghost.yaml",
+        "bytes": 1575,
+        "sha256": "f546064259e88fd67026831e8a7113959eed9958a1526bb264f3a9855c1a1fa4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5s-LeakyReLU.yaml",
+        "bytes": 1589,
+        "sha256": "3f91fb57ce81d21a2c05ec549cf243d62a1dd91c4f59adcec5884eafc33ac46c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5s-transformer.yaml",
+        "bytes": 1532,
+        "sha256": "ca0c60c21ffe05a23172d237e8a5b9de09fcf49f3b90b0c12d8cbd9c8abeffbd"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5s6.yaml",
+        "bytes": 1924,
+        "sha256": "53de7ea4414ebe5b36513eff0d2260c7cba42921a67b48bfb778adfae6c7405d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/hub/yolov5x6.yaml",
+        "bytes": 1924,
+        "sha256": "ff59529b9f71ff207ad71a3155b52b99c5ddcc59107089d4a0faeea562319e3d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/pruned_common.py",
+        "bytes": 1981,
+        "sha256": "8592fcfa1553508c56f11f1d5b1fbc9b2eb7997162afdf4fce38b197b1daa838"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/segment/yolov5l-seg.yaml",
+        "bytes": 1503,
+        "sha256": "c0c4dd5eabec2cbfd4ab63babb59438116a105eec5896fda31d0f0802d74648f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/segment/yolov5m-seg.yaml",
+        "bytes": 1505,
+        "sha256": "553dc7c24e21c903ad31cf5b8b85071fa587a6d907841ba83486e429b5374cde"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/segment/yolov5n-seg.yaml",
+        "bytes": 1505,
+        "sha256": "5b73620599c2084cae03bf3146ef464a8ce549477f0be919d18c7c160a1a249e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/segment/yolov5s-seg.yaml",
+        "bytes": 1504,
+        "sha256": "ede913b912bfd832183e3e903b688d1378f7cea55c6cce13d68a709e5eac5518"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/segment/yolov5x-seg.yaml",
+        "bytes": 1505,
+        "sha256": "1777ce1a5cb263fcea8647adf1a25c8a70e6d32ba4d2b0c6437ad824a97617a9"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/tf.py",
+        "bytes": 34587,
+        "sha256": "d37b872d2c7800659d327490ac2a985c20f3c1d0dbe0d7eff34ecbca9210f2c3"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolo-og.py",
+        "bytes": 21659,
+        "sha256": "399a607522313f6237e94683ba5d5984f8ed8500205a17a34154afbc407047b0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolo.py",
+        "bytes": 26596,
+        "sha256": "b761069670f80862cb528fd86a9d7789cb46b8320cab3326eab4a8504ab96315"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5l.yaml",
+        "bytes": 1493,
+        "sha256": "64d59541d7158f1bde66e29133abb780c8cda1b4a53a69e401c7591c963943a5"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5m.yaml",
+        "bytes": 1495,
+        "sha256": "f0585ba8c6ea26ce08d0224bbdd2ad1f2c6458e598b7f34a3b9fed19000e7330"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5n.yaml",
+        "bytes": 1495,
+        "sha256": "31e2732d501ce329da86bae8272cce2192c52b9feebfb63b2941573c749aa507"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5s.yaml",
+        "bytes": 1494,
+        "sha256": "c82f549b5b9d54aa4d31bd28afd23c0ba805421050a77e6661094ad2663bfece"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5shuf_dw_peam.yaml",
+        "bytes": 2641,
+        "sha256": "8a59b2f744f1256d95666d3361ed77eba8e29d5ef29f86d71c90c06bf4c768c8"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5shufflenet_dw.yaml",
+        "bytes": 1544,
+        "sha256": "4e1864b977bef4eb62e8ca05dcfb67af682e39b0cc862932df2e47d27e8fc510"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5shufflenet.yaml",
+        "bytes": 1635,
+        "sha256": "c7d6ad8929de63b10986fa99013418b161551ea7a0e2b46e070aab7784a6a55b"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yolov5x.yaml",
+        "bytes": 1495,
+        "sha256": "5d4a6705af1d9e583a94dc6e9515fa30fd89c8197b2493669f0f0943cf19bd3d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_gh.yaml",
+        "bytes": 1539,
+        "sha256": "d159a99f2375309e5254ffad1135f75cb843db10e5a6f7880dfbb266ac9d046b"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_hyb.yaml",
+        "bytes": 2669,
+        "sha256": "b2b7a82a00f71e2aa24946c69debb8dfd0553d5725e6da130af2e4d41ff25d01"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_mo_dh_hyb.yaml",
+        "bytes": 2669,
+        "sha256": "c050fc18a1d1c62f0e100deb6fa8a70772f8574c308bdf0e8962d0b2ad73076f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_mo_dh.yaml",
+        "bytes": 2720,
+        "sha256": "6cba2158652d96288ab2db8c0c9bd0fa53a7a007dad8a2803cca5be5aaa5ea5f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_mo.yaml",
+        "bytes": 2690,
+        "sha256": "debc61162cfb83203da7bfee1de79f3dc738873fb334015a4bb08e3f9565a60d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/models/yv5_shu_dh.yaml",
+        "bytes": 2660,
+        "sha256": "3d871cf6a0e97e421f6e724e26e55a708d8ed0dac701587f78435516ca8d88da"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/phase2_launcher.py",
+        "bytes": 1943,
+        "sha256": "38d1490fcba8f4f7ddc4c82e2580a4d79c8dab805f84a4c6fc4abd45c154c997"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/prune.py",
+        "bytes": 1340,
+        "sha256": "0fd5bc0541ebb708c05e712ed5e194c50720108405786b25f6e8846f4dd9d62c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/pyproject.toml",
+        "bytes": 5550,
+        "sha256": "bd25d1d2490db4d113a1e6c22ad45ed79cbd191ad40d83824662e642d6562349"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/requirements.txt",
+        "bytes": 1700,
+        "sha256": "9a843f484da5f2ee7e65fd92d0917fc1fce068f8e7de2461741992571f512bd0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test/hyp.yaml",
+        "bytes": 405,
+        "sha256": "56b772fa1b446fda16a65e7845b9473ca4cb8c677765af74d75f20767c0fc693"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test/opt.yaml",
+        "bytes": 1234,
+        "sha256": "ec7168568b9624edde08401ae2cc9125b1ba1a000c5003e8694e835e9921c044"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test2/hyp.yaml",
+        "bytes": 405,
+        "sha256": "56b772fa1b446fda16a65e7845b9473ca4cb8c677765af74d75f20767c0fc693"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test2/opt.yaml",
+        "bytes": 1218,
+        "sha256": "12e57e614d4a0e8b8e784096a6eae58d60d39f91d3b967cb3fe6698ed66445b1"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test3/hyp.yaml",
+        "bytes": 405,
+        "sha256": "56b772fa1b446fda16a65e7845b9473ca4cb8c677765af74d75f20767c0fc693"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test3/opt.yaml",
+        "bytes": 1218,
+        "sha256": "96df3e04927a6685a12dac1fefe441c65d8ea965fd5b20981efd34b976d9fce4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test4/hyp.yaml",
+        "bytes": 405,
+        "sha256": "56b772fa1b446fda16a65e7845b9473ca4cb8c677765af74d75f20767c0fc693"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/runs/train/cpu_smoke_test4/opt.yaml",
+        "bytes": 1218,
+        "sha256": "ebf5538b723f8d5a8a123cae0ca90fbc741698f1ca107a8662f1b44fcb447894"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/segment/predict.py",
+        "bytes": 16621,
+        "sha256": "baf1b6adea108b034183384c29ca1a15cedf48e85133b024c0efaa8c3abe3ed0"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/segment/train.py",
+        "bytes": 35969,
+        "sha256": "deb0cb16afe6c1088a4b6e80b878fb4d05efea8534b5d41dae5e1832e3fae7c9"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/segment/val.py",
+        "bytes": 24923,
+        "sha256": "facd32cf8593d0fd3aad912d1eff74d491e7bd1b345b7b3f353dd94a830d6f66"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/test.py",
+        "bytes": 2890,
+        "sha256": "56449429a64c30c99950464ad1a8fd9131051a7130c53abbd5cc7e6c03bdb18e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/train_baseline.sh",
+        "bytes": 1385,
+        "sha256": "e38023c30dffdf29cf729dfd92811889ba4aa5ab03d82c576b944ecf66c33316"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/train.py",
+        "bytes": 48166,
+        "sha256": "463efde6f2d2a88c2f39f80b156b5efd4445eca91ad4bf88dc3d523c3f6d4185"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/__init__.py",
+        "bytes": 3369,
+        "sha256": "966bdb005209949ce6049906b6dee06ce28af8703ae659115836d3c3ed91346c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/activations.py",
+        "bytes": 5172,
+        "sha256": "937d96842ab42423c51044aa319c939f0d038deb0a7333d60da4b3d0a84d92d7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/augmentations.py",
+        "bytes": 19175,
+        "sha256": "38a6b9ff2c9ceddd89689fda16bd653a96ef160a80cafd4b4f32b2060883049e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/autoanchor.py",
+        "bytes": 8136,
+        "sha256": "6471e2a4c55479a3e97069d392a0ad7b4d54377cff8e1263ab564a46687a02ea"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/autobatch.py",
+        "bytes": 3138,
+        "sha256": "06790d46cfdee08b23f45b38261bf186fd24765bd622959ad17d392a10e7bb61"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/aws/__init__.py",
+        "bytes": 71,
+        "sha256": "7cd29367640feb4566385a2e553261a0ca258b31f0b94907a0cdf1e5197e8b9e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/aws/mime.sh",
+        "bytes": 806,
+        "sha256": "60234c2cd1ad832938f8ec624fc0e80de3a5c45c7a4a17112e45e2403fa8161d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/aws/resume.py",
+        "bytes": 1311,
+        "sha256": "c715d9c1fbdb4661cbfcea9bbc8d1930149470d1c2d3df99da2fc68423e4eb7f"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/aws/userdata.sh",
+        "bytes": 1274,
+        "sha256": "b386bfdab43ec1df0b6e620c174804cba7eef34b8f7b9815de85bfe16e688199"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/callbacks.py",
+        "bytes": 2810,
+        "sha256": "3a9703ce46088ab2fa8b6a6cb2ffb9f450f6708643f2c995fa78aee7084a6999"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/dataloaders.py",
+        "bytes": 61848,
+        "sha256": "d8d508cefa229205f7f1480d636ba7b711a826fb69c7e218a0042cb002b38239"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/datasets.py",
+        "bytes": 46177,
+        "sha256": "fd637b67a9a165226fb2df0e9aa52e0021f436f430dbc6b6769c0073ac6e31f3"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/downloads.py",
+        "bytes": 5398,
+        "sha256": "51a8cf05b8edc5d98864e8e6951abfac8e9d604d3f057d1af02fc99bfa560953"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/flask_rest_api/example_request.py",
+        "bytes": 408,
+        "sha256": "facebf91025db66314807988876ec681fdb7d602270661b42fa16a6d17676ae8"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/flask_rest_api/restapi.py",
+        "bytes": 1647,
+        "sha256": "31224e0873e5759cbeda07a0d84c9f63bc4f00a3463a17b355504bccb828ec1a"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/general.py",
+        "bytes": 52776,
+        "sha256": "f1f2a1e12d60dcebabd1463bf6101cad5ff1d4ed192f53981465b795621a5eb4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/google_app_engine/additional_requirements.txt",
+        "bytes": 270,
+        "sha256": "079cc8b03ec66b7f0c78e48defbc4cafa58590fe83cf265c29cb32ad733b6c93"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/google_app_engine/app.yaml",
+        "bytes": 261,
+        "sha256": "374ec5bd2e5fce553f67039427d119576f5b65b074f2c347ca4a210dbd0090d4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/__init__.py",
+        "bytes": 20759,
+        "sha256": "c1fdab5d5b335e530bfa9a393bbab318643831666d3e9c81abdce6235a92f089"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/clearml/__init__.py",
+        "bytes": 71,
+        "sha256": "7cd29367640feb4566385a2e553261a0ca258b31f0b94907a0cdf1e5197e8b9e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/clearml/clearml_utils.py",
+        "bytes": 9937,
+        "sha256": "50b8ca49556aa95c268ff59e7dbe95b214050d5941592f3408a0995b1891bf11"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/clearml/hpo.py",
+        "bytes": 5405,
+        "sha256": "5d1b5df235516972ec732854eaf7660ffa2c7e821c6abc34a3f0535ea7ef1916"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/comet/__init__.py",
+        "bytes": 22067,
+        "sha256": "dc1870097a0534678588eb5a7ba37d1cab67b4340a45749f451454da0d11478d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/comet/comet_utils.py",
+        "bytes": 5000,
+        "sha256": "e856bca9e3961ff8891b120955eb96efbdc4473df427015d3133129c0014bbd7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/comet/hpo.py",
+        "bytes": 7082,
+        "sha256": "3a7e9d69b096408c85129e8000400a82ef47df377dda505982d3c56cc7c4684d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/wandb/__init__.py",
+        "bytes": 71,
+        "sha256": "7cd29367640feb4566385a2e553261a0ca258b31f0b94907a0cdf1e5197e8b9e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loggers/wandb/wandb_utils.py",
+        "bytes": 8380,
+        "sha256": "db77354d4bdd1d34efa485753ffe07177c4ec1d0002ed7b63a190155aebe5a81"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/loss.py",
+        "bytes": 11411,
+        "sha256": "44b9870632c77c37a21535f7637a5b1715a7ca8ac7b92ec8626d96770905a909"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/metrics.py",
+        "bytes": 15902,
+        "sha256": "b1b3f14101abc1ad68f8980b29f7eac806cec6a339c27512b1b1a95da635ecb3"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/plots.py",
+        "bytes": 21231,
+        "sha256": "b18548ec9e13a7d664957e98c6c47d05efa5bc3ac2b0a7e653de2a09fb9401c7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/prune_utils.py",
+        "bytes": 9768,
+        "sha256": "3b02fdb02d40eb0ea328be75378208b32ea995de190b1045430e341823f3255c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/__init__.py",
+        "bytes": 71,
+        "sha256": "7cd29367640feb4566385a2e553261a0ca258b31f0b94907a0cdf1e5197e8b9e"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/augmentations.py",
+        "bytes": 3650,
+        "sha256": "e3114bb6389cf35f303ea988e8dd89ef7428b39d66ba8e26fba7b369ba1768a4"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/dataloaders.py",
+        "bytes": 14082,
+        "sha256": "286d1f73a5fedfa0e14ad97fffac411097a96d9751b461579095fd727452646b"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/general.py",
+        "bytes": 6130,
+        "sha256": "ab513fb90f065c8a85bd391ccc6372aebff08b59ac121cfa013cf25941fab87c"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/loss.py",
+        "bytes": 9409,
+        "sha256": "d9f4223d9202df2e017a8cf8ffedc60ad8f88362176c340a95d773d0cdd5878d"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/metrics.py",
+        "bytes": 6272,
+        "sha256": "65fba06fe0932697cba484682b9c0e9f4a4998e2fba718bc2b21d986f1e721fc"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/segment/plots.py",
+        "bytes": 6864,
+        "sha256": "ad5a144c0cb19871c887533f130b8eb88b6ac2e79de524c187fc1c9e24c666c6"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/torch_utils.py",
+        "bytes": 22215,
+        "sha256": "3a26902f310853363e903707f2147914d7e2e6c499681235653054ecfa5930e7"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/utils/triton.py",
+        "bytes": 3906,
+        "sha256": "1a21821213e676749bad493103d4716d631a8e21e4afdee49752816ed028f9ab"
+      },
+      {
+        "path": "base_detector/yolov5_ghostnet_AFNO/val.py",
+        "bytes": 31053,
+        "sha256": "e5a65cc7e119eb746c03daba3ac301aa236c67624071da195ea6cc5f77679c56"
+      },
+      {
+        "path": "beyond the frame -.txt",
+        "bytes": 15514,
+        "sha256": "e41df5ff375f24cd3b84e073b4b47ede94552f85fc13c6961f979658ce3f6c82"
+      },
+      {
+        "path": "evidence/__init__.py",
+        "bytes": 67,
+        "sha256": "eb921d6e5e6bdf693d731d78e5b1b497ac68b0f3777e5c5480b0ddc8e23eeb34"
+      },
+      {
+        "path": "evidence/crop_extractor.py",
+        "bytes": 3517,
+        "sha256": "0513ec22559ced53688a1d3853f416998de830e6eb86358c74b972374a60940e"
+      },
+      {
+        "path": "evidence/frame_selector.py",
+        "bytes": 10815,
+        "sha256": "991807326efcc5fa8705c36782e7a72915ab0acc66ed348d9de94a145aa01221"
+      },
+      {
+        "path": "experiments/eval_drone_vs_bird.yaml",
+        "bytes": 135,
+        "sha256": "44a696a1ac12354af3353c066cff82ad6edc54e5170844113907d39992bacbce"
+      },
+      {
+        "path": "experiments/evaluation/__init__.py",
+        "bytes": 78,
+        "sha256": "e8ac1886badda28ab589abce669317d37aa10b437af04fde5dd6b0ec5084ec51"
+      },
+      {
+        "path": "experiments/evaluation/evaluate.py",
+        "bytes": 36539,
+        "sha256": "7f13d6680dc4ea6c6dd9885789c1bbd909dc1d8b6fd82a9ba834df7ab76dc91a"
+      },
+      {
+        "path": "experiments/evaluation/tests/__init__.py",
+        "bytes": 59,
+        "sha256": "a3d81ee961e0c4b69f8e6567e182d7b90804dd489ea7d0acac3375deae75a257"
+      },
+      {
+        "path": "experiments/evaluation/tests/test_evaluate.py",
+        "bytes": 4481,
+        "sha256": "32dbe220e2ee245ab21742450dcd3084fe62b86d728b0a7b0240b2feaaeee637"
+      },
+      {
+        "path": "experiments/experiment_manifest.py",
+        "bytes": 2741,
+        "sha256": "083917073dd14191e38e147298b414f9c367689630849033b7ee351ebed7369a"
+      },
+      {
+        "path": "frontend/app.js",
+        "bytes": 201935,
+        "sha256": "3b6a90b72b9e686f934c4af21b551cf9859f46bb341a0182fcbd0abcfe6568c3"
+      },
+      {
+        "path": "frontend/index.html",
+        "bytes": 45318,
+        "sha256": "4794a8ebfd9ec42f64604e9a97c72e65dbedf88ffbd38a1e205d70a3c229c506"
+      },
+      {
+        "path": "frontend/server.py",
+        "bytes": 10573,
+        "sha256": "f105146080bfe940d143a36216f9f132acb20a098f9c7c38b17deb1c4274a579"
+      },
+      {
+        "path": "frontend/styles.css",
+        "bytes": 76783,
+        "sha256": "0715acfcdd300732f1e170173b337663714698b29d05c7c30262918e9d2bbebf"
+      },
+      {
+        "path": "frontend/tests/test_alert_evidence.js",
+        "bytes": 16561,
+        "sha256": "3a32bcd92cb1ad78178ff3729d7657d136ed63fd5f87268f49f148105f2861b2"
+      },
+      {
+        "path": "frontend/tests/test_alert_sound.js",
+        "bytes": 6232,
+        "sha256": "55aa55dfcba29cd8516719cfd675ba371693860eab67949ad96f2d62d2b55f2f"
+      },
+      {
+        "path": "frontend/tests/test_analysis_timeline.js",
+        "bytes": 12742,
+        "sha256": "abd97b439e420d1d61d9e17437d8758853d3c2f3a225d503f4c20dc9d62f6485"
+      },
+      {
+        "path": "frontend/tests/test_auth_proxy.py",
+        "bytes": 16057,
+        "sha256": "ea52ab60ea5c452e1940b610b4cee2f24d97269b1c51d7b0d69432d3e9504a21"
+      },
+      {
+        "path": "frontend/tests/test_concurrent_run_ux.js",
+        "bytes": 5984,
+        "sha256": "12b0ae62d5a59d8ea5110097a737ce6e30c47bd0217ae7e042734830392571d8"
+      },
+      {
+        "path": "frontend/tests/test_dashboard_contract.py",
+        "bytes": 28117,
+        "sha256": "0fd5e8471ec6a8df510c0ce01f2ad31fbececc5e07068513459e0e3b7c4f4c0c"
+      },
+      {
+        "path": "frontend/tests/test_dashboard_fresh_login.js",
+        "bytes": 5128,
+        "sha256": "bcabff911dc57ebc578d80d190657672235ac66b55556cf3e5f2e9c7cd5c8e47"
+      },
+      {
+        "path": "frontend/tests/test_dashboard_routes.js",
+        "bytes": 15859,
+        "sha256": "a8cabe37c9df4978940cc91b93f56f644fc089883c426155e6937d564292d35d"
+      },
+      {
+        "path": "frontend/tests/test_dashboard_summary.js",
+        "bytes": 4955,
+        "sha256": "768e67a8de837ca693f6badc31983fe421b8625171bc0c4644aae17c7d2c6c24"
+      },
+      {
+        "path": "frontend/tests/test_dashboard_trajectory.js",
+        "bytes": 12472,
+        "sha256": "bde09fc1e6d3dc640a0e1086b94ca12954d0a5cbac350dddb7a3b8247d87a22a"
+      },
+      {
+        "path": "frontend/tests/test_server_routes.py",
+        "bytes": 1794,
+        "sha256": "1161e3c405a5c74cc594e8b3afe6e5896b2087b171e6603d359afcf4f087b9b1"
+      },
+      {
+        "path": "frontend/tests/test_stop_analysis.js",
+        "bytes": 8839,
+        "sha256": "3f3ea5de0a77aa220ae5cff99caef437a49e1d08d0eca22b96da9ff385661e20"
+      },
+      {
+        "path": "fusion/__init__.py",
+        "bytes": 69,
+        "sha256": "ac6459689f7e879fb465e0de82cb4ca28d57dfcba0800dfcc38c1e88f0187621"
+      },
+      {
+        "path": "fusion/evidence_fusion.py",
+        "bytes": 9427,
+        "sha256": "d1caf672010141495e943e4ccb7cff2f3f36fc675330e4b0733b021286f02659"
+      },
+      {
+        "path": "fusion/phase5_evidence_fusion.py",
+        "bytes": 26719,
+        "sha256": "02cf58858dca63051907d50f59021ad2141f51bd87fa509ba47b63863ae4bc98"
+      },
+      {
+        "path": "fusion/tests/test_fusion.py",
+        "bytes": 8510,
+        "sha256": "7837c190e89af792950bef7e92e237edfbc48f76af45f9554161b326e18da59c"
+      },
+      {
+        "path": "fusion/tests/test_phase5_evidence_fusion.py",
+        "bytes": 17035,
+        "sha256": "2e5b723279ef182060601ea8ab38c87f32455eb3b5bc4885f990a218b392f285"
+      },
+      {
+        "path": "KGAT_dedcdc7745ac58cf02a095d2ff0d48.txt",
+        "bytes": 259,
+        "sha256": "4be32f2fadfeb4b0be03c24b3447333f480551e4bb85438faef94209dd883109"
+      },
+      {
+        "path": "Minor degree.. run.txt",
+        "bytes": 2114,
+        "sha256": "fd2a555bfe6a07b54fc9d31346043b57f1892dee4480ae2a2c27afe15d73e836"
+      },
+      {
+        "path": "multimodal/__init__.py",
+        "bytes": 699,
+        "sha256": "366ca8b5b4e859757a9aa86c3a937ac1e420be3587caa104f103a887ce2baa5c"
+      },
+      {
+        "path": "multimodal/boreas_radar/__init__.py",
+        "bytes": 207,
+        "sha256": "3515acca377ed9f3f284818d56419eea7a70917256a8acdf7046d8f0e280cc27"
+      },
+      {
+        "path": "multimodal/boreas_radar/association.py",
+        "bytes": 1295,
+        "sha256": "f4d5acb8254307d05c89c119ea2e455508719505c01a7f205285cf080b9edfc0"
+      },
+      {
+        "path": "multimodal/boreas_radar/candidate_extraction.py",
+        "bytes": 2548,
+        "sha256": "f2c54cee8e4b54bf7a5c7e4fa7b344c0c45e2efd1982efedb9e10b38ea3ab165"
+      },
+      {
+        "path": "multimodal/boreas_radar/config.py",
+        "bytes": 1361,
+        "sha256": "cb4c560725d96024b0a826de666e2daa6fc4a60c830a59a13ff51d7cf29297ad"
+      },
+      {
+        "path": "multimodal/boreas_radar/geometric_validation.py",
+        "bytes": 37776,
+        "sha256": "129124387ddbd92e547762200084d289e1ca184936a271e4047afe3f983ed73b"
+      },
+      {
+        "path": "multimodal/boreas_radar/geometry.py",
+        "bytes": 6736,
+        "sha256": "baf2f9ad34e35603b4bbfda85a2c14bcfa2bfbbf1dd71d84da0f5d06a0a4aa6c"
+      },
+      {
+        "path": "multimodal/boreas_radar/outputs/boreas_radar_geometric_validation_report.txt",
+        "bytes": 4851,
+        "sha256": "8f5343add8c270446551385e9ad2e33697650375d7df064732f9babeb4b916f5"
+      },
+      {
+        "path": "multimodal/boreas_radar/outputs/boreas_radar_validation_report.txt",
+        "bytes": 4971,
+        "sha256": "b9b93db328973f4dfc21f0f3bf28a3995499c3ba2b7943f9da5d1c7fb1cc974d"
+      },
+      {
+        "path": "multimodal/boreas_radar/outputs/boreas_visual_track_radar_association_report.txt",
+        "bytes": 5141,
+        "sha256": "9529caad4c8aadaa3d0eb38bc128b762c59bfd94fa2bc8d50c8b2c916705c267"
+      },
+      {
+        "path": "multimodal/boreas_radar/projection.py",
+        "bytes": 5278,
+        "sha256": "fdf0b58a98fb750ce99b74aa1a69345fa023abd14927c0eaa977fbec14cd0933"
+      },
+      {
+        "path": "multimodal/boreas_radar/radar_data.py",
+        "bytes": 2285,
+        "sha256": "da0c626959402e5fa41f1b95d2dea524980bfb86bb03b1686fd15fbec0bc4fa1"
+      },
+      {
+        "path": "multimodal/boreas_radar/temporal_visual_track_validation.py",
+        "bytes": 22794,
+        "sha256": "99feb756124a3234be52e1c067f31a626304bdbef001f13f58836004c31bbef3"
+      },
+      {
+        "path": "multimodal/boreas_radar/tests/test_core.py",
+        "bytes": 11695,
+        "sha256": "b65bec4c5b207b7c7c8ba20c2de6a960ba4579ca4d49ac303353c0150268e288"
+      },
+      {
+        "path": "multimodal/boreas_radar/tests/test_temporal_visual_track_validation.py",
+        "bytes": 2323,
+        "sha256": "984a3c0356bd78a356d9892f893eb5a3b25321ebd647667f74024de1a9d19866"
+      },
+      {
+        "path": "multimodal/boreas_radar/validation.py",
+        "bytes": 24599,
+        "sha256": "88cd03ac12e519a7f4d9fe9de524f7009b8fc9d2354c5dc5f82c3de12e543ece"
+      },
+      {
+        "path": "multimodal/caltech_evidence.py",
+        "bytes": 5541,
+        "sha256": "0734b4ab9925e98a2a2b2e6419c059c27ff6832644c9538b3f3c7f4e06a488f3"
+      },
+      {
+        "path": "multimodal/contracts.py",
+        "bytes": 3151,
+        "sha256": "eee40c342ebb046270d149ac1e65d4081ff86ba5e3c62412e73026925dd87fab"
+      },
+      {
+        "path": "multimodal/inputs.py",
+        "bytes": 1629,
+        "sha256": "a461ace1e72efdd76b56200359879f15e95ee43c4a43ad75723319bead08a89f"
+      },
+      {
+        "path": "multimodal/radar_adapter.py",
+        "bytes": 4096,
+        "sha256": "011c5bdd3fe5d422407fa6aaf7969e4319da6540eb2f23285b8d3d7b29790ff5"
+      },
+      {
+        "path": "multimodal/sync.py",
+        "bytes": 4510,
+        "sha256": "79ad639b9cf54b95aca5dd6f73261752bc3f6170a2d586b37e7972aa79bc459b"
+      },
+      {
+        "path": "multimodal/tests/__init__.py",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "multimodal/tests/test_caltech_evidence.py",
+        "bytes": 5534,
+        "sha256": "c342f0fc5b7a19b5b46e83391cc3f8710b4ce9da6d3832322891bf46fe34a42a"
+      },
+      {
+        "path": "multimodal/tests/test_contracts.py",
+        "bytes": 1468,
+        "sha256": "8563a1da20c12827193d61e6160fb75231b1f42ef6d2717a784e9027c75b5f6d"
+      },
+      {
+        "path": "multimodal/tests/test_inputs.py",
+        "bytes": 1448,
+        "sha256": "9876c6a88943145ae1a22c206a1a587d5a8a55106ace793aa1ce5c4962195565"
+      },
+      {
+        "path": "multimodal/tests/test_radar_adapter.py",
+        "bytes": 1426,
+        "sha256": "7eb570b8b0db7a0b87787edd911efad8aedb5468cac9955ae57ba7211e6bdd5f"
+      },
+      {
+        "path": "multimodal/tests/test_radar_real_data.py",
+        "bytes": 3785,
+        "sha256": "e9db10cb7249bc604d9a2ac5840c72c8948d92deebf4242b35917424726d6161"
+      },
+      {
+        "path": "multimodal/tests/test_sync.py",
+        "bytes": 3882,
+        "sha256": "dc4b91c88eb6576d707faadd493228cbe0344fc5af0c00c4c324197579e5ce38"
+      },
+      {
+        "path": "multimodal/tests/test_thermal_adapter.py",
+        "bytes": 6181,
+        "sha256": "3e0a27018becb0a670658611c07122e339f76ed0cb5e3191195b142ff84e3a2d"
+      },
+      {
+        "path": "multimodal/tests/test_track_association.py",
+        "bytes": 3995,
+        "sha256": "632d0b8dd91de03c3ab5a0e8ba195a5a146a5e34559cb0b41d906fde90f2e950"
+      },
+      {
+        "path": "multimodal/thermal_adapter.py",
+        "bytes": 6714,
+        "sha256": "4d6b6902864baa65c88f0ba973a44847431d2e283132c877f7e789457f0e02f1"
+      },
+      {
+        "path": "multimodal/thermal/__init__.py",
+        "bytes": 68,
+        "sha256": "5090fd60b99d2fc6a069d80282e3d4315d3a8335e1ee5c9d82dec6ec0e290ba8"
+      },
+      {
+        "path": "multimodal/thermal/outputs/thermal_spatial_mapping_report.txt",
+        "bytes": 3205,
+        "sha256": "711653ed51b85b5191b7f1221c97286ffbb1753f66f1db6cebecaf798fdaf9db"
+      },
+      {
+        "path": "multimodal/thermal/spatial_mapping.py",
+        "bytes": 5350,
+        "sha256": "8c4ec480027183fb4aeefa3e6ca7198683bc404c52d77308853f26e6df8f374b"
+      },
+      {
+        "path": "multimodal/thermal/tests/__init__.py",
+        "bytes": 64,
+        "sha256": "96a8cb9c100505a33441c5f53fcaa9099a4bed5124e9c6f9c8b152b89e9cbe31"
+      },
+      {
+        "path": "multimodal/thermal/tests/test_spatial_mapping.py",
+        "bytes": 3416,
+        "sha256": "6f4e7a99bb86798c855394d4c9050ceb7006a1904fa474a7b277a24440f80261"
+      },
+      {
+        "path": "multimodal/thermal/validate_spatial_mapping.py",
+        "bytes": 20059,
+        "sha256": "161e31378621c6fc26f62fcca14d1d5733e80e63eeb3eacfc043857be4bebd20"
+      },
+      {
+        "path": "multimodal/track_association.py",
+        "bytes": 2631,
+        "sha256": "b029524f87bd1de7e400ed3cfe56d01ce7a3c90a61e37af5bdee0182375f60d6"
+      },
+      {
+        "path": "pytest.ini",
+        "bytes": 36,
+        "sha256": "a733d38a82819b9967fde079b4bdd61d422259af23a094da53872a57bf853673"
+      },
+      {
+        "path": "reliability/__init__.py",
+        "bytes": 50,
+        "sha256": "df3d77a217765d128d26d6b4c81447e16a96767d77bb561190f3f6d0fb6e17b3"
+      },
+      {
+        "path": "reliability/reliability_score.py",
+        "bytes": 9606,
+        "sha256": "811e38f96009aeb9f36e78963d280c0311e50111f7e086325eb0119bdd659a8c"
+      },
+      {
+        "path": "reliability/tests/test_reliability.py",
+        "bytes": 8143,
+        "sha256": "a632a2f61096329bc4912c34d38b1d0540820d4fa366ec75bc22ec534911b94e"
+      },
+      {
+        "path": "requirements-dev.txt",
+        "bytes": 36,
+        "sha256": "c1d51482a203066a7e7fed71ea224e5dba2133c25323aae1c9c00813fa9e87eb"
+      },
+      {
+        "path": "requirements-radar.txt",
+        "bytes": 43,
+        "sha256": "e30000670e5fe44a76c7372bf89bc634e3e19f119a791a97383bbb6874d681da"
+      },
+      {
+        "path": "requirements-vlm.txt",
+        "bytes": 43,
+        "sha256": "f0438318d9ebec83dd6047faeaca2956ec9256e00655c314bffcfe0e7350dd2f"
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 56,
+        "sha256": "20c998828f60fb91317b52680f68eb971ba0dfa7c2173ee917ccd3ab1e15aa78"
+      },
+      {
+        "path": "temporal/__init__.py",
+        "bytes": 58,
+        "sha256": "7476aaaa1c394b6b6b13b3aa5509690e6e9236b85fbcc70fe4d091d3809a2cee"
+      },
+      {
+        "path": "temporal/motion_trajectory.py",
+        "bytes": 30712,
+        "sha256": "c0d14b8f82fbbf024e41b2cc5872cfc96838b91251873b93996162d50aa4cf1e"
+      },
+      {
+        "path": "temporal/temporal_consensus.py",
+        "bytes": 21952,
+        "sha256": "b9d864d7bb4bd7b94a9bdbf0cb555884264969fdbcfc49fc6b0df6abe43c730d"
+      },
+      {
+        "path": "temporal/temporal_features.py",
+        "bytes": 4630,
+        "sha256": "443c7d633b2839c842ffe52f12313b75adbbf66727962296963006f549ac0a85"
+      },
+      {
+        "path": "temporal/tests/test_motion_trajectory.py",
+        "bytes": 9209,
+        "sha256": "63d1b2c384edf40f390d182349068ffb23e98ed3b84a43c0b4998bf0f005a60c"
+      },
+      {
+        "path": "temporal/tests/test_temporal_consensus.py",
+        "bytes": 13934,
+        "sha256": "70c800a3fe01cc798a61738d151b901c67c5d9e04559fdbc9fe2fc0e36298cb7"
+      },
+      {
+        "path": "temporal/tests/test_temporal.py",
+        "bytes": 4925,
+        "sha256": "f622b11ad05862bc626b975d11e11e9623d9ebeb724f8ac5e30f78fb2010cbbf"
+      },
+      {
+        "path": "temporal/tracklet_memory.py",
+        "bytes": 2871,
+        "sha256": "3ee03455decbbf734c4ebaf4cce73767805834161c622a58c3b95d67422090ba"
+      },
+      {
+        "path": "tools/extract_caltech_rgb_video.py",
+        "bytes": 10942,
+        "sha256": "4e304e208f4b5640f94ad8e8b850a49df1f905ba3d791a692b40ce7fa28c78b6"
+      },
+      {
+        "path": "tools/extract_caltech_rgbt_sample.py",
+        "bytes": 3891,
+        "sha256": "0ef7ca08fef77b48bb2b4dcb0476f8142db06ec8326dccb62da5ce34d894c793"
+      },
+      {
+        "path": "tools/tests/test_extract_caltech_rgb_video.py",
+        "bytes": 2727,
+        "sha256": "94c5ad263aacf711bc828ccd7582716e1b064703e3326c3fe5fde31a888fcc5d"
+      },
+      {
+        "path": "tools/tests/test_thermal_manual_review.py",
+        "bytes": 13354,
+        "sha256": "b7d4e2ae06cdf803a639b32fb53b240307b81694ab13e2d942ec9e077054f25d"
+      },
+      {
+        "path": "tools/thermal_manual_review.py",
+        "bytes": 29216,
+        "sha256": "46271b7e86e071ebe3456d01c6868bdc35f1d551c32f6f564402cf7dce7f0151"
+      },
+      {
+        "path": "tools/validate_caltech_sync.py",
+        "bytes": 2325,
+        "sha256": "02523fe10b3d6815b24b3afbdde2ed053b93e681a03d61b6c17991f3fa9830f8"
+      },
+      {
+        "path": "vlm/__init__.py",
+        "bytes": 55,
+        "sha256": "b3c63cec65ba3bac975d691426d0539851d02963ddf85c3c02fb5f430b909f04"
+      },
+      {
+        "path": "vlm/fast_vlm_confidence_test.py",
+        "bytes": 1945,
+        "sha256": "f9bb1b0b3127c68b360485c2a6e0e31d7ce008ad99a0aeaf36a5bc3d031523fc"
+      },
+      {
+        "path": "vlm/inspect_vlm_candidates.py",
+        "bytes": 2145,
+        "sha256": "89943d2657a11e4f3d2170c5ddd9492c664c58452b7d911fb2d5e5818aa426a5"
+      },
+      {
+        "path": "vlm/inspect_vlm_scores.py",
+        "bytes": 1835,
+        "sha256": "6ff2dba860e6713640da3d6386d2023d51917f6187de51dea4daa3dc1f7a7b26"
+      },
+      {
+        "path": "vlm/prompts.py",
+        "bytes": 408,
+        "sha256": "00fc320bb7725da3b283e74124020a639a77fedb643e1e2987a1143f8d328b0a"
+      },
+      {
+        "path": "vlm/score_vlm_candidates.py",
+        "bytes": 2743,
+        "sha256": "bfd7c6c7a665d85a46e99ea4d720a1e7fa6c4dc20bb17411c2bb4cf996f29287"
+      },
+      {
+        "path": "vlm/tests/test_vlm.py",
+        "bytes": 21060,
+        "sha256": "2d75f277d8dbd97fae7fd02d959d5b35adb13deadd61ecd5887a6eda12a0e16e"
+      },
+      {
+        "path": "vlm/vlm_adapter_backup.py",
+        "bytes": 1878,
+        "sha256": "88fa847592bac8ef51f88366c2d54ff65f48ee2b2487d3947bf5b3c902498a58"
+      },
+      {
+        "path": "vlm/vlm_adapter.py",
+        "bytes": 10778,
+        "sha256": "8e469c39b02e2e7044048f53951df6a5948ed065fa4e9a44f5406e104754d236"
+      }
+    ]
+  },
+  "checkpoints": [
+    {
+      "path": "artifacts/checkpoints/best.pt",
+      "exists": true,
+      "bytes": 33064849,
+      "sha256": "fd7851d7cb958ecfa21d2901c5f1ae16eeeca426a9b9688fa0f91ee372cfec5b"
+    },
+    {
+      "path": "artifacts/checkpoints/thermal_bird_drone_best.pt",
+      "exists": true,
+      "bytes": 5770787,
+      "sha256": "ad2edb7b6a310a42df86262ebbf5d06736cb1fbe0efe028d9b1b92bd4eb73477"
+    }
+  ],
+  "dataset_and_project_anchors": [
+    {
+      "path": "artifacts/checkpoints/best.pt",
+      "exists": true,
+      "bytes": 33064849,
+      "sha256": "fd7851d7cb958ecfa21d2901c5f1ae16eeeca426a9b9688fa0f91ee372cfec5b"
+    },
+    {
+      "path": "artifacts/checkpoints/thermal_bird_drone_best.pt",
+      "exists": true,
+      "bytes": 5770787,
+      "sha256": "ad2edb7b6a310a42df86262ebbf5d06736cb1fbe0efe028d9b1b92bd4eb73477"
+    },
+    {
+      "path": "datasets/drone_vs_bird/class_mapping.yaml",
+      "exists": true,
+      "bytes": 568,
+      "sha256": "8f44761344722cf0449cce9a94616af08d2a401f5ebb6f6abcf7a5106301ad4f"
+    },
+    {
+      "path": "datasets/drone_vs_bird/data.yaml",
+      "exists": true,
+      "bytes": 301,
+      "sha256": "94d8d2f680364ead257309b84f3007dfb1b7535a4dee0d503e76862f9a74fe92"
+    },
+    {
+      "path": "datasets/external/drone_detection_thesis_v1_official_data/acquisition_manifest.json",
+      "exists": true,
+      "bytes": 321739,
+      "sha256": "18ecaa37f802ef6ee760548c691f212ef2388983864dd94335559766c04b2199"
+    },
+    {
+      "path": "datasets/external/SMOT4SB_initial_train_pilot/pilot_subset_manifest.json",
+      "exists": true,
+      "bytes": 1514,
+      "sha256": "03e3929606e65ccda073d4ed89777231da781f66a7316a57b2d71cb293b32b4d"
+    },
+    {
+      "path": "datasets/external/UB-SOD_figshare_v1_verified_2026-10-22/acquisition_manifest.json",
+      "exists": true,
+      "bytes": 6019,
+      "sha256": "a370df512128af0921c91f8d40700d6590694bf9edafe963223843e92aa0b60c"
+    },
+    {
+      "path": "datasets/processed/phase2/drone_detection_thesis_inventory_reviewed.csv",
+      "exists": true,
+      "bytes": 109909,
+      "sha256": "aacbf2274be9c5297734c2d332f0b110f67694837ba6e2cffe64380ba7ce2e99"
+    },
+    {
+      "path": "datasets/processed/phase2/LOCAL_DATASET_INVENTORY_AND_NEXT_EVALUATION_2026-10-22.md",
+      "exists": true,
+      "bytes": 6011,
+      "sha256": "af0d331557ceaa6f158bfc0a5dfb891777f364428bdeef572a4fae50813183cc"
+    },
+    {
+      "path": "datasets/processed/phase2/SMOT4SB_initial_train_annotation_inventory.csv",
+      "exists": true,
+      "bytes": 1927,
+      "sha256": "2400f869034b7f55a89766b3b4b726ff3ae31214db6518d7318fd8b3e2a4b7c5"
+    },
+    {
+      "path": "docs/PHASE1_BASELINE_FREEZE_2026-10-22.md",
+      "exists": true,
+      "bytes": 3815,
+      "sha256": "69a8e42f9a5c8951445dc8ee7c8dae9792a328a0f2d7425286caa1dec175bcb9"
+    },
+    {
+      "path": "docs/PHASE1_SMOKE_RUN_2026-10-21.md",
+      "exists": true,
+      "bytes": 4280,
+      "sha256": "c73a953eff9866e46085028fdb1dcfad938d3b3900b8e0f7d99a7cd1152268c4"
+    },
+    {
+      "path": "docs/PHASE2_TEST_SCENARIOS.md",
+      "exists": true,
+      "bytes": 10377,
+      "sha256": "d42d0ca56b3dd8e669236385d8000bbbcc16fae9a67ab874795cd25253e7796c"
+    },
+    {
+      "path": "docs/PROJECT_READINESS_CHECKLIST.md",
+      "exists": true,
+      "bytes": 17005,
+      "sha256": "f2098252151b83535d96902559ba465abcecded71bf15f3031ee309d0e92dd58"
+    }
+  ],
+  "saved_smoke_runs": [
+    {
+      "run_id": "RUN_20261021_101203_a421af98c64fc5b8d76d4310",
+      "status": {
+        "path": "results/dashboard_runs/RUN_20261021_101203_a421af98c64fc5b8d76d4310/status.json",
+        "exists": true,
+        "bytes": 2077,
+        "sha256": "a5cadfbb0ca24acb22d768b76718317ca4454b8f0a2aa6e9314df9c364558d24"
+      },
+      "run_manifest": {
+        "path": "results/dashboard_runs/RUN_20261021_101203_a421af98c64fc5b8d76d4310/run_manifest.json",
+        "exists": true,
+        "bytes": 1507,
+        "sha256": "4b830221435724ce23150795c6f5e95aba3b7ab56314262f9b8b590dfaaef4c5"
+      }
+    },
+    {
+      "run_id": "RUN_20261021_101328_aaf8521dcecd5acb167cc350",
+      "status": {
+        "path": "results/dashboard_runs/RUN_20261021_101328_aaf8521dcecd5acb167cc350/status.json",
+        "exists": true,
+        "bytes": 2351,
+        "sha256": "50d142738ad4218865adbe8a468ebcd8057f1d3e6d55e3237f505ec7bbc1041f"
+      },
+      "run_manifest": {
+        "path": "results/dashboard_runs/RUN_20261021_101328_aaf8521dcecd5acb167cc350/run_manifest.json",
+        "exists": true,
+        "bytes": 1957,
+        "sha256": "1cd625f96247e37db9a9235a08d54d8dedd21f281c9c68098c18a376dc07e606"
+      }
+    }
+  ],
+  "scope_note": "This is a baseline record, not a claim of model accuracy, dataset alignment, or scientific validation. Existing source/data/run files were read and hashed only.",
+  "source_snapshot_archive": {
+    "path": "docs/baseline_freeze_2026-10-22/source_snapshot.zip",
+    "bytes": 783785,
+    "sha256": "4b5357e2bf1a79e3d2ccca95a62cada18cdaf54d98711df61f484455e0d24134",
+    "entry_count": 274
+  }
+}

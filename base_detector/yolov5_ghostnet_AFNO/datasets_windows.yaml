@@ -1,0 +1,9 @@
+path: ../../datasets/drone_vs_bird
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 2
+names:
+  0: Bird
+  1: Drone

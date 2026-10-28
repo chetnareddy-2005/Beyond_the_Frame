@@ -1,0 +1,47 @@
+BOREAS visual UUID to Radar geometric-evidence validation
+==========================================================
+Dataset root: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\datasets\boreas_radar_validation
+Existing geometric association source: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\multimodal\boreas_radar\outputs\boreas_radar_geometric_validation.csv
+TOTAL_CAMERA_FRAMES = 38
+TOTAL_OBJECT_LABEL_FRAMES = 15
+TOTAL_RADAR_SCANS = 12
+TOTAL_LABELED_OBJECT_OBSERVATIONS = 486
+UNIQUE_VISUAL_UUIDS = 48
+UUIDS_PRESENT_IN_2_OR_MORE_LABEL_FRAMES = 45
+UUIDS_PRESENT_IN_ADJACENT_LABEL_FRAMES = 45
+MAX_CONSECUTIVE_LABEL_FRAMES_FOR_ONE_UUID = 15
+CAMERA_FRAMES_WITH_MATCHED_LABEL_OBSERVATIONS = 15
+LABEL_TO_NEAREST_CAMERA_DELTA_MIN_MEDIAN_MAX_MS = 2.155 / 20.415 / 38.568
+
+The annotations are sampled timestamped 3D object-tracking ground truth, not image-space camera boxes for every camera frame. UUID persistence is established across consecutive annotation frames; each observation is paired with the nearest actual camera image timestamp. This is an annotation-linked visual identity layer, not an independently generated visual tracker ID.
+
+ASSOCIATED_SOURCE_ROWS = 57
+UNIQUE_UUID_RADAR_SCAN_ASSOCIATIONS = 41
+UUIDS_WITH_2_OR_MORE_RADAR_ASSOCIATED_SCANS = 10
+UUIDS_WITH_2_OR_MORE_CONSECUTIVE_RADAR_ASSOCIATED_SCANS = 9
+UUIDS_WITH_3_OR_MORE_CONSECUTIVE_RADAR_ASSOCIATED_SCANS = 1
+TOTAL_CONSECUTIVE_RADAR_ASSOCIATION_RUNS = 29
+MAX_CONSECUTIVE_RADAR_SCAN_RUN = 3
+LONGEST_RUN_UUIDS_AND_TIMESTAMPS = 4ca41b5f-770b-4894-8186-9167c8b53dc8 (3 scans: 1598986289391448, 1598986289641304, 1598986289890313); 4ca41b5f-770b-4894-8186-9167c8b53dc8 (3 scans: 1598986290391950, 1598986290639313, 1598986290891521)
+LONGEST_RUN_POLAR_OBSERVATIONS:
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986289391448 | expected_range=18.6445 m | candidate_range=20.5918 m | range_error=2.0753 m | expected_azimuth=-177.8575 deg | candidate_azimuth=180.9 deg | azimuth_error=1.2297 deg | scan_local_candidate_index=6
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986289641304 | expected_range=18.8636 m | candidate_range=20.8302 m | range_error=2.099 m | expected_azimuth=-177.966 deg | candidate_azimuth=180.9 deg | azimuth_error=1.2463 deg | scan_local_candidate_index=1
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986289890313 | expected_range=19.1134 m | candidate_range=21.0686 m | range_error=2.0638 m | expected_azimuth=-178.0447 deg | candidate_azimuth=180.9 deg | azimuth_error=1.0478 deg | scan_local_candidate_index=14
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986290391950 | expected_range=19.4824 m | candidate_range=21.4858 m | range_error=2.0909 m | expected_azimuth=-178.2369 deg | candidate_azimuth=180.9 deg | azimuth_error=0.8932 deg | scan_local_candidate_index=8
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986290639313 | expected_range=19.6634 m | candidate_range=21.5454 m | range_error=1.9582 m | expected_azimuth=-178.2977 deg | candidate_azimuth=180.9 deg | azimuth_error=0.8482 deg | scan_local_candidate_index=4
+UUID 4ca41b5f-770b-4894-8186-9167c8b53dc8 | radar=1598986290891521 | expected_range=19.7754 m | candidate_range=21.7242 m | range_error=2.0027 m | expected_azimuth=-178.3409 deg | candidate_azimuth=180.9 deg | azimuth_error=0.7718 deg | scan_local_candidate_index=4
+RANGE_ERROR_MEDIAN_M = 1.8674
+RANGE_ERROR_MAX_M = 5.1692
+ABS_AZIMUTH_ERROR_MEDIAN_DEG = 0.9273
+ABS_AZIMUTH_ERROR_MAX_DEG = 7.0097
+
+All error statistics use unique ASSOCIATED UUID/Radar-scan pairs only. Duplicate label rows mapping to the same UUID/scan are collapsed only after checking that candidate index, range, azimuth, and intensity agree.
+Radar candidate index is a deterministic ordinal local to one scan. It is preserved for within-scan traceability and is not a Radar-track ID; matching ordinals across scans do not imply the same Radar return.
+The persistent identity anchor is the official BOREAS visual-object UUID. ASSOCIATED records geometric consistency between that UUID's timestamped 3D ground-truth box and an extracted raw Radar intensity candidate. This is an annotation-linked object identity associated with its nearest camera observation, not an independently generated visual detector/tracker ID. This is not Radar detection accuracy, Radar tracking accuracy, or Radar identity.
+Radar evidence recurrence across UUID observations does not create a persistent Radar identity. The existing polar gates and candidate extraction are unchanged.
+
+VISUAL_TRACK_OBSERVATIONS_CSV = C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\multimodal\boreas_radar\outputs\boreas_visual_track_observations.csv
+RADAR_TO_VISUAL_UUID_CSV = C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\multimodal\boreas_radar\outputs\boreas_radar_to_visual_uuid_observations.csv
+RADAR_TO_VISUAL_TRACK_ASSOCIATION = ESTABLISHED (geometric intensity-candidate evidence linked to persistent BOREAS object UUIDs only)
+PERSISTENT_RADAR_IDENTITY = NOT_ESTABLISHED
+BOREAS_VISUAL_TRACK_LAYER = ESTABLISHED (label-sampled UUID layer; not per-camera-frame bounding-box coverage)

@@ -1,0 +1,118 @@
+PHASE 4 COMPLETION REPORT
+========================
+
+AUTHORITATIVE STATUS
+--------------------
+FINAL_PHASE4_STATUS = COMPLETE_WITH_DOCUMENTED_LIMITATION
+
+Phase 4 closure applies to the documented evidence-interface, selective-evidence,
+verification, modality-validation, and conservative evidence-gating scope. It does
+not require or claim synchronized RGB+Thermal+Radar object-level evidence for every
+Caltech track. The audit matrix is results/caltech_rgb_tracking/phase4_completion_audit.csv.
+
+DEMONSTRATED ON THE CALTECH PROJECT DATA
+----------------------------------------
+- RGB evidence: existing detector/tracker outputs contain 2,210 observations
+  across 69 Caltech visual track IDs.
+- Reliability-driven selective evidence: selection is complete for the existing
+  17 UNCERTAIN tracks. Their representative early/middle/late RGB evidence is
+  selected; only UNCERTAIN tracks receive these selected crops.
+- Representative RGB evidence extraction: 44 selected RGB crops exist across
+  those 17 tracks, and the referenced crop paths resolve.
+- Semantic VLM verification: real SmolVLM-500M-Instruct integration was executed
+  on selected uncertain-track evidence, with 17 existing track-level outputs.
+  VLM confidence is a generated-token probability proxy, not calibrated
+  probability. Caltech VLM results are exploratory and do not establish
+  track-level ground-truth accuracy.
+- Thermal timestamp synchronization: Track 24 has four RGB/Thermal timestamp
+  matches with deltas around 4.25-4.48 ms. Other selected tracks have no matches.
+- Thermal preprocessing: Thermal frame reading and normalized grayscale/
+  intensity preprocessing are implemented. These values are image intensity,
+  not calibrated physical temperature.
+- Official Thermal size handling: the official Caltech stereo-rectification
+  workflow pads native 640x512 Thermal imagery to 960x600 before paired
+  rectification. This padding workflow is validated as the official procedure.
+- Phase 5 compatibility and evidence gating: existing outputs cover 69 tracks
+  and distinguish available, unavailable, and unassociated evidence. Existing
+  tests verify that unassociated Thermal/Radar is not injected as object-level
+  evidence. Missing modality evidence is not treated as negative class evidence.
+
+DEMONSTRATED ONLY ON THE BOREAS VALIDATION SUBSET
+------------------------------------------------
+- Radar geometric evidence validation: PASS on the already downloaded BOREAS
+  Objects-V1 3-second subset. The existing geometric-validation CSV contains
+  57 associated annotation rows, representing 41 unique associated
+  visual-UUID/Radar-scan pairs after consistent duplicate rows are collapsed.
+- Sampled persistent visual/ground-truth UUID layer: ESTABLISHED from 15
+  timestamped BOREAS 3D tracking-label frames and their nearest actual camera
+  timestamps. The subset contains 48 UUIDs; 45 recur in adjacent annotated
+  frames. These are sampled timestamped 3D object annotations, not
+  image-space boxes or detector-generated visual tracks for every camera frame.
+- Radar intensity-candidate evidence associated geometrically with persistent
+  BOREAS visual/ground-truth UUIDs: ESTABLISHED. Nine UUIDs have associations
+  in at least two consecutive Radar scans; the maximum consecutive run is
+  three scans.
+- These BOREAS associations compare extracted raw Radar intensity candidates
+  with timestamped 3D ground-truth object geometry using the previously
+  validated calibration, pose chain, and unchanged polar gates.
+- The Radar candidate index is an ordered-list ordinal local to one scan.
+  It is not a persistent Radar return/object identity; matching index values
+  across scans do not imply the same physical return.
+
+EXPLICIT LIMITATIONS / NOT ESTABLISHED
+--------------------------------------
+- THERMAL_TIMESTAMP_SYNC = VALIDATED for the stated four Track 24 pairs.
+- THERMAL_OFFICIAL_PADDING_WORKFLOW = VALIDATED for the official native-size
+  padding procedure.
+- RECORDING_SPECIFIC_RGB_THERMAL_CALIBRATION = NOT_ESTABLISHED for the selected
+  Caltech bag. Available calibration declarations do not match its recorded
+  camera topics/frame metadata, even though the official generic workflow
+  documents padding 640x512 Thermal frames to 960x600.
+- THERMAL_SPATIAL_OBJECT_ASSOCIATION = NOT_ESTABLISHED for Caltech tracks.
+  No validated Thermal object region/crop association exists; no Thermal crops
+  were created from an unvalidated mapping.
+- RADAR_TO_CALTECH_TRACK_ASSOCIATION = NOT_ESTABLISHED. The BOREAS Radar/UUID
+  evidence is from a separate validation subset and does not associate Radar
+  evidence with Track 24 or any other Caltech track/frame.
+- PERSISTENT_RADAR_IDENTITY = NOT_ESTABLISHED. The available Radar evidence is
+  raw intensity-candidate geometric evidence, not independent Radar detection
+  or tracking ground truth. No Radar detection accuracy or Radar tracking
+  accuracy is claimed.
+- The BOREAS visual UUID layer is based on sampled annotated observations, not
+  continuous detector-generated image tracks on every camera frame.
+- Mandatory synchronized RGB+Thermal+Radar object-level fusion for Caltech
+  tracks has not been demonstrated and is not claimed.
+- VLM confidence remains uncalibrated and exploratory; no measured Caltech
+  track-level accuracy improvement is claimed.
+
+PHASE 5 COMPATIBILITY
+---------------------
+Existing Phase 5 compatibility is demonstrated through the pre-existing
+69-track outputs, evidence-availability records, conservative gates, and tests.
+Thermal evidence without validated spatial association and Radar evidence
+without Caltech synchronization/track association remain unavailable or
+unassociated rather than being injected as object-level evidence. Phase 5
+outputs were not changed as part of this closure.
+
+EVIDENCE AND SCOPE REFERENCES
+-----------------------------
+- Selective RGB evidence:
+  results/caltech_rgb_tracking/phase4_uncertain_evidence/selected_evidence.csv
+- Caltech VLM outputs:
+  results/caltech_rgb_tracking/phase4_uncertain_evidence/vlm_results_17track.csv
+- Thermal spatial validation:
+  multimodal/thermal/outputs/thermal_spatial_mapping_report.txt
+  multimodal/thermal/outputs/thermal_spatial_mapping_results.csv
+- BOREAS Radar geometric validation:
+  multimodal/boreas_radar/outputs/boreas_radar_geometric_validation.csv
+  multimodal/boreas_radar/outputs/boreas_radar_geometric_validation_report.txt
+- BOREAS visual UUID/Radar evidence association:
+  multimodal/boreas_radar/outputs/boreas_visual_track_radar_association_report.txt
+  multimodal/boreas_radar/outputs/boreas_radar_to_visual_uuid_observations.csv
+- Phase 5 compatibility:
+  results/caltech_rgb_tracking/phase5_fusion/phase5_fusion_report.txt
+  results/caltech_rgb_tracking/phase5_fusion/phase5_evidence_availability.csv
+
+No detector, tracker, VLM, Thermal, Radar extraction/association, or Phase 5
+experiment was rerun for this documentation synchronization. Existing
+experimental result files and Phase 5 outputs remain authoritative and unchanged.

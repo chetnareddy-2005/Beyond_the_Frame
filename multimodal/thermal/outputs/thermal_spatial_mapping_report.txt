@@ -1,0 +1,33 @@
+Caltech RGB-Thermal spatial mapping validation
+================================================
+Calibration source: C:\Temp\btf_phase4_track24_rectification_check\color_thermal_10x10_calib.yaml
+Selected bag: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\datasets\caltech_aerial_rgbt_sync\raw\2022-05-08-11-44-33.bag
+Selected streams: /eo/color/image_color/compressed; /boson/thermal/image_raw
+Calibration-declared streams: /eo/color/image_mono/invert; /boson/thermal/image_raw/image_8bit
+Calibration RGB/Thermal sizes (W,H): (960, 600); (960, 600)
+Observed native RGB/Thermal sizes (W,H): (960, 600); (640, 512)
+Calibration provenance check: FAIL
+Calibration rejection reasons: RGB_CALIBRATION_TOPIC_NOT_IN_RECORDING, THERMAL_CALIBRATION_TOPIC_NOT_IN_RECORDING, THERMAL_NATIVE_SIZE_DIFFERS_FROM_CALIBRATION
+
+Coordinate and calibration interpretation
+------------------------------------------
+RGB track boxes are stored in the 960x960 video canvas. The original RGB frame is 960x600 with centered top padding of 180 pixels; the source box is obtained by subtracting that padding and is checked against image bounds.
+For a compatible calibration, the official StereoRectifier uses cam1's T_cn_cnm1 directly as R,T in cv2.stereoRectify(cameraMatrix1=cam0, cameraMatrix2=cam1); no inverse is inserted by this validation wrapper. Rectified point coordinates must be obtained through the corresponding official undistort/rectify maps, not same-coordinate transfer.
+Rectification constrains epipolar rows but does not determine horizontal Thermal correspondence. A valid depth/disparity or independently measured cross-modal registration is required before a localized region can be emitted.
+
+Results
+-------
+SYNCED_RGB_THERMAL_PAIRS_TESTED = 4
+SPATIALLY_REGISTERED_PAIRS = 0
+REGISTRATION_REJECTED_PAIRS = 4
+MAPPING_CONFIDENCE_MIN = N/A (precondition failed; no confidence score computed)
+MAPPING_CONFIDENCE_MEDIAN = N/A (precondition failed; no confidence score computed)
+MAPPING_CONFIDENCE_MAX = N/A (precondition failed; no confidence score computed)
+TEMPORALLY_STABLE_MAPPINGS = 0 (none registered; stability not evaluated)
+THERMAL_CROPS_GENERATED = 0
+Confidence threshold for any future crop: 0.75; no score was assigned to rejected pairs.
+
+Timestamp synchronization is established for these four pairs (about 4.25-4.48 ms delta), but this is not spatial association. The calibration declares topics absent from this bag, and its Thermal image size (960x600) does not match the native selected Thermal stream (640x512). The previous rectification products are retained only as diagnostics; they do not repair the provenance/resolution mismatch or provide a justified Thermal x-coordinate.
+No depth/disparity stream or recording-matched calibration was available. Accordingly all four mappings remain THERMAL_SPATIAL_MAPPING_UNCERTAIN. No arbitrary rescaling, same-coordinate transfer, pseudo-confidence, or Thermal crop was produced. Intensity preprocessing is not a physical temperature measurement.
+Visualization: C:\Users\Ranik\OneDrive\Desktop\Behind_the_Frame\multimodal\thermal\outputs\track24_spatial_mapping_diagnostic.png
+THERMAL_SPATIAL_MAPPING = INCONCLUSIVE

@@ -1,0 +1,53 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+
+# Parameters
+nc: 2  # number of classes
+depth_multiple: 0.40  # model depth multiple
+width_multiple: 0.53  # layer channel multiple
+anchors:
+  - [10,13, 16,30, 33,23]  # P3/8
+  - [30,61, 62,45, 59,119]  # P4/16
+  - [116,90, 156,198, 373,326]  # P5/32
+
+backbone:
+  [[-1, 1, Conv_maxpool, [16]],  # 0-P2/4----------------------------------0
+
+   [-1, 1, MobileNetV3_InvertedResidual, [16, 64, 3, 2, True, False]],  # 1-P3/8----1
+   [-1, 2, MobileNetV3_InvertedResidual, [64, 72, 3, 1, False, False]], # 2---------2
+
+   [-1, 1, MobileNetV3_InvertedResidual, [72, 120, 5, 2, True, True]],  # 3-P4/16---3
+   [-1, 3, MobileNetV3_InvertedResidual, [120, 240, 5, 1, True, True]],  # 4--------4
+
+   [-1, 1, MobileNetV3_InvertedResidual, [240, 480, 3, 2, False, True]],  # 5-P5/32-5
+   [-1, 2, MobileNetV3_InvertedResidual, [480, 672, 3, 1, True, True]],  # 6--------6
+
+   [-1, 1, DWConv2D, [960, 1, 1]],  # Ensure 960 channels before SPPF------7
+   [-1, 1, SPPF, [512, 5]],  # --------------------------------------------8
+   [-1, 1, AFNO2D, [512, 8, 0.01, 1, 1]] # --------------------9
+  ]
+
+head:
+  [[-1, 1, DWConv2D, [512, 1, 1]],  # -------------------------------------10
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # --------------------------11
+   [[-1, 4], 1, Concat, [1]],  # ------------------------------------------12
+   [-1, 1, PEAM, [512]],  # Apply PEAM before feature fusion  -------------13
+   [-1, 3, C3Ghost, [512, False]],  # -------------------------------------14
+
+   [-1, 1, DWConv2D, [256, 1, 1]],  # -------------------------------------15
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # --------------------------16
+   [[-1, 2], 1, Concat, [1]],  # ------------------------------------------17
+   [-1, 1, PEAM, [256]],  # Apply PEAM before feature fusion  -------------18
+   [-1, 3, C3Ghost, [256, False]],  # -------------------------------------19
+
+   [-1, 1, DWConv2D, [256, 3, 2]],  # -------------------------------------20
+   [[-1, 12], 1, Concat, [1]],  # -----------------------------------------21
+   [-1, 1, PEAM, [512]],  # Apply PEAM before feature fusion---------------22
+   [-1, 3, C3Ghost, [512, False]],  #--------------------------------------23
+
+   [-1, 1, DWConv2D, [512, 3, 2]],  # -------------------------------------24
+   [[-1, 9], 1, Concat, [1]],  #-------------------------------------------25
+   [-1, 1, PEAM, [1024]],  # Apply PEAM before final detection head  ------26
+   [-1, 3, C3Ghost, [1024, False]],  # ------------------------------------27
+
+   [[19, 23, 27], 1, Detect, [nc, anchors]] # -------------------28
+  ]

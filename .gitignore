@@ -1,0 +1,35 @@
+# Python environments and generated caches
+.venv/
+venv/
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-*/
+.test-tmp/
+.phase*-*/
+.thermal-package-staging/
+.ipynb_checkpoints/
+*.ipynb
+
+# Local secrets and account state
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db
+results/auth/
+results/authorization/
+
+# Datasets, archives, and training outputs stay outside GitHub
+datasets/
+*.zip
+*.crdownload
+**/runs/
+results/*
+!results/caltech_rgb_tracking/
+results/caltech_rgb_tracking/*
+!results/caltech_rgb_tracking/**
+.git.keep_for_root_push/

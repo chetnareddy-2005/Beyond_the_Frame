@@ -1,0 +1,10 @@
+# BASE DETECTOR REPRODUCTION baseline dataset.
+path: ../../datasets/drone_vs_bird
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 2
+names:
+  - Bird
+  - Drone

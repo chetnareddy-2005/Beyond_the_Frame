@@ -1,0 +1,21 @@
+sample_index,drone,distance_condition_m,rendered_png,raw_mat,rd_matrix_available,rd_matrix_shape,radar_timestamp_available,caltech_recording_id_available,synchronization_metadata_available,radar_adapter_compatible,selected_caltech_recording_association,track24_association,specific_caltech_rgb_frame_association
+1,Matrice 30,28,images/Matrice 30_28m_001.png,metadata/raw_mat/Matrice 30_28m_001.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+2,Matrice 30,28,images/Matrice 30_28m_002.png,metadata/raw_mat/Matrice 30_28m_002.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+3,Matrice 30,28,images/Matrice 30_28m_003.png,metadata/raw_mat/Matrice 30_28m_003.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+4,Matrice 30,28,images/Matrice 30_28m_004.png,metadata/raw_mat/Matrice 30_28m_004.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+5,Matrice 30,28,images/Matrice 30_28m_005.png,metadata/raw_mat/Matrice 30_28m_005.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+6,Matrice 30,28,images/Matrice 30_28m_006.png,metadata/raw_mat/Matrice 30_28m_006.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+7,Matrice 30,28,images/Matrice 30_28m_007.png,metadata/raw_mat/Matrice 30_28m_007.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+8,Matrice 30,28,images/Matrice 30_28m_008.png,metadata/raw_mat/Matrice 30_28m_008.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+9,Matrice 30,28,images/Matrice 30_28m_009.png,metadata/raw_mat/Matrice 30_28m_009.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+10,Matrice 30,28,images/Matrice 30_28m_010.png,metadata/raw_mat/Matrice 30_28m_010.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+11,Matrice 30,28,images/Matrice 30_28m_011.png,metadata/raw_mat/Matrice 30_28m_011.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+12,Matrice 30,28,images/Matrice 30_28m_012.png,metadata/raw_mat/Matrice 30_28m_012.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+13,Matrice 30,28,images/Matrice 30_28m_013.png,metadata/raw_mat/Matrice 30_28m_013.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+14,Matrice 30,28,images/Matrice 30_28m_014.png,metadata/raw_mat/Matrice 30_28m_014.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+15,Matrice 30,28,images/Matrice 30_28m_015.png,metadata/raw_mat/Matrice 30_28m_015.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+16,Matrice 30,28,images/Matrice 30_28m_016.png,metadata/raw_mat/Matrice 30_28m_016.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+17,Matrice 30,28,images/Matrice 30_28m_017.png,metadata/raw_mat/Matrice 30_28m_017.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+18,Matrice 30,28,images/Matrice 30_28m_018.png,metadata/raw_mat/Matrice 30_28m_018.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+19,Matrice 30,28,images/Matrice 30_28m_019.png,metadata/raw_mat/Matrice 30_28m_019.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO
+20,Matrice 30,28,images/Matrice 30_28m_020.png,metadata/raw_mat/Matrice 30_28m_020.mat,YES,148x4096 complex128,NO,NO,NO,YES - sample reference only,NO,NO,NO

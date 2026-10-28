@@ -1,0 +1,22 @@
+python train.py --img 640 --batch 16 --epochs 5 --data data.yaml --weights yolov5s.pt --name yolo_s --hyp data/hyps/hyp.scratch-low.yaml
+python val.py --img 640 --batch 16 --data data.yaml --weights runs/train/yolo_s/weights/best.pt --name yolo_s
+python detect.py --source drone3.mp4 --weights runs/train/yolo_s/weights/best.pt --conf-thres 0.25 --img 640 --name yolo_s --save-txt --save-conf
+
+
+python train.py --img 640 --batch 16 --epochs 5 --data data.yaml --cfg models/yolov5shufflenet.yaml --weights '' --name yolo_shufflenet --hyp data/hyps/hyp.scratch-low.yaml
+python val.py --img 640 --batch 16 --data data.yaml --weights runs/train/yolo_shufflenet/weights/best.pt --name yolo_shufflenet
+python detect.py --source drone3.mp4 --weights runs/train/yolo_shufflenet/weights/best.pt --conf-thres 0.25 --img 640 --name yolo_shufflenet --save-txt --save-conf
+
+
+python train.py --img 640 --batch 16 --epochs 5 --data data.yaml --cfg models/yolov5shufflenet_dw.yaml --weights '' --name yolo_shufflenet_dw --hyp data/hyps/hyp.scratch-low.yaml
+python val.py --img 640 --batch 16 --data data.yaml --weights runs/train/yolo_shufflenet_dw/weights/best.pt --name yolo_shufflenet_dw
+python detect.py --source drone3.mp4 --weights runs/train/yolo_shufflenet_dw/weights/best.pt --conf-thres 0.25 --img 640 --name yolo_shufflenet_dw --save-txt --save-conf
+
+
+python train.py --img 640 --batch 16 --epochs 5 --data data.yaml --cfg models/yolov5shuf_dw_peam.yaml --weights '' --name yolov5shuf_dw_peam --hyp data/hyps/hyp.scratch-low.yaml
+python val.py --img 640 --batch 16 --data data.yaml --weights runs/train/yolov5shuf_dw_peam/weights/best.pt --name yolov5shuf_dw_peam
+python detect.py --source drone3.mp4 --weights runs/train/yolov5shuf_dw_peam/weights/best.pt --conf-thres 0.25 --img 640 --name yolov5shuf_dw_peam --save-txt --save-conf
+python export.py --weights runs/train/yolov5shufflenet/weights/best.pt --include torchscript
+
+python train.py --cfg models/yv5_mo_dh.yaml --img 640 --batch 16 --epochs 5 --data data.yaml --name yolo_rh --hyp data/hyps/hyp.scratch-low.yaml
+python val.py --img 640 --batch 16 --data data.yaml --weights runs/train/yolo_rh/weights/best.pt --name yolo_rh

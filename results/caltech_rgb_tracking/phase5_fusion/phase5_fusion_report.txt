@@ -1,0 +1,14 @@
+PHASE 5 EVIDENCE-LEVEL FUSION REPORT
+====================================
+Tracks: 69 unique track-level results.
+Fusion modes: detector_temporal=52, detector_vlm=17.
+RGB evidence: 69 tracks have RGB detector observations; RGB is the detector's source and is not double-counted as a second class score.
+VLM evidence: 17 tracks have existing VLM results; no VLM was rerun.
+Thermal synchronized: 1 tracks; spatially associated: 0.
+Radar genuine: 20 RD samples; Caltech-associated: 0.
+Fusion compatibility: detector-temporal outputs were checked against fusion_baseline.csv; VLM outputs were checked against fusion_vlm_exploratory.csv.
+Formula: existing fuse_track logic and reliability weighting are unchanged. Missing evidence is not used as negative evidence.
+Thermal gate: both thermal_frame_available and thermal_spatial_crop_available must be true. Track 24 has synchronized frames but no spatial crop, so Thermal did not contribute.
+Radar gate: genuine data and valid Caltech recording/track association metadata are required. Genuine TSMS-Drone samples are not associated with this Caltech recording or its tracks, so Radar did not contribute.
+Phase 4 limitation remains: RGB-to-Thermal object-level spatial mapping is not validated; no thermal object crop exists.
+No existing baseline, Phase 4 result, model, or source file was modified.

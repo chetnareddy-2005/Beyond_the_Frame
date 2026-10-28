@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "phase": "Phase 2 — Requirements freeze",
+  "status": "complete",
+  "specification_version": "1.0",
+  "frozen_on": "2026-10-22",
+  "source_specification": "docs/PHASE2_TEST_SCENARIOS.md",
+  "locked_copy": "docs/phase2_requirements_freeze_2026-10-22/PHASE2_TEST_SCENARIOS_v1.0_LOCKED.md",
+  "locked_copy_bytes": 11518,
+  "locked_copy_sha256": "d4942996127a18dc26bfea77233a3c278be0158fe2ffdaa67f5943beb6b15729",
+  "immutability_rule": "Do not change acceptance criteria after examining test results. Requirement changes need a new version and written rationale before affected evaluation; retain v1.0.",
+  "data_boundary": "V1 and V2 remain not evaluated because eligible local video/ground truth is unavailable. V3 pilot clips are training-split development data, not held-out test data. Missing data does not waive or redefine requirements.",
+  "acceptance_areas": [
+    "V1 mixed birds+drone expected classes, tracks, per-drone review alerts, and summary consistency",
+    "V2 simultaneous multiple drones keep distinct identities and alert/evidence per track",
+    "V3 bird-only flock creates zero UAV alerts and reports misses/uncertainty honestly",
+    "Shared detection, tracking, alert timing, dashboard reconciliation, thermal, and authorization rules are specified in locked document",
+    "Metrics and data-split rules are specified before model tuning"
+  ]
+}

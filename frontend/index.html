@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0A0F14">
+    <title>Beyond the Frame — Dynamic Video Analysis</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <section id="splash-view" class="entry-view splash-view" aria-label="Beyond the Frame is initializing">
+      <div class="splash-orbit">
+        <span class="brand-mark splash-mark" aria-hidden="true">BF</span>
+        <span class="splash-drone" aria-hidden="true"></span>
+      </div>
+      <p class="splash-title">BEYOND THE FRAME</p>
+      <p class="splash-subtitle">AERIAL OBJECT DETECTION &amp; VERIFICATION</p>
+      <p class="splash-status"><span></span> Initializing System...</p>
+    </section>
+
+    <main id="login-view" class="entry-view login-view" hidden>
+      <section class="login-hero" aria-label="Beyond the Frame drone monitoring system">
+        <div class="login-hero-grid" aria-hidden="true"></div>
+        <div class="login-hero-topline"><span class="hero-live-dot"></span> SIMULATION PREVIEW <span class="hero-topline-divider">/</span> VISUAL TRACKING</div>
+        <div class="login-hero-copy"><p class="eyebrow">BEYOND THE FRAME · FIELD INTELLIGENCE</p><h2>See the signal.<br><span>Understand the flight.</span></h2><p>Visual detection, track history, and evidence in one operational view.</p></div>
+        <div class="login-hero-art" aria-hidden="true"><div class="hero-radar-ring hero-radar-ring-outer"></div><div class="hero-radar-ring hero-radar-ring-mid"></div><div class="hero-radar-ring hero-radar-ring-inner"></div><div class="hero-radar-cross hero-radar-cross-x"></div><div class="hero-radar-cross hero-radar-cross-y"></div><span class="login-radar-sweep" aria-hidden="true"></span>
+          <span class="login-radar-bird login-radar-bird-one" aria-label="Simulated bird track"></span>
+          <span class="login-radar-bird login-radar-bird-two" aria-label="Simulated bird track"></span>
+          <span id="login-radar-uav" class="login-radar-uav" aria-label="Unidentified simulated track"></span>
+          <span id="login-radar-crosshair" class="login-radar-crosshair" aria-hidden="true"></span>
+          <span id="login-radar-flash" class="login-radar-flash" aria-hidden="true"></span>
+          <div class="hero-coordinate hero-coordinate-b">SIMULATED TRACKS <span>· NO LIVE TELEMETRY</span></div>
+        </div>
+        <p id="login-radar-status" class="login-radar-status" role="status" aria-live="polite">[IDLE] Radar scanning. Demo tracks only; no live telemetry.</p>
+        <div class="login-hero-foot"><span>01</span> DETECT <i></i><span>02</span> TRACK <i></i><span>03</span> VERIFY</div>
+      </section>      <div class="login-radar" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div id="login-ping-layer" class="login-ping-layer" aria-hidden="true"></div>
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="login-brand">
+          <span class="brand-mark login-mark" aria-hidden="true">BF</span>
+          <p class="brand-name">BEYOND THE FRAME</p>
+          <p class="brand-caption">AERIAL OBJECT DETECTION &amp; VERIFICATION</p>
+        </div>
+        <div class="login-node-status" aria-live="polite"><span class="login-node-dot" aria-hidden="true"></span><span id="login-node-label">Waiting for sign-in</span><span class="login-node-separator" aria-hidden="true">/</span><span>API authentication</span></div>
+        <div class="login-heading">
+          <p class="eyebrow">SECURE SYSTEM ACCESS</p>
+          <h1 id="login-title">Welcome back</h1>
+          <p>Sign in to continue to the analysis dashboard.</p>
+        </div>
+        <form id="login-form" class="login-form">
+          <label for="login-account-type">Sign in as</label>
+          <select id="login-account-type" class="text-input" autocomplete="off">
+            <option value="headquarters_admin">Headquarters Admin</option>
+            <option value="sector">Sector Account</option>
+          </select>
+          <div id="login-sector-selector" hidden>
+            <label for="login-sector-number">Approved sector</label>
+            <select id="login-sector-number" class="text-input" autocomplete="off" disabled>
+              <option value="">Select an approved sector</option>
+            </select>
+            <p id="login-sector-status" class="input-help" role="status" aria-live="polite"></p>
+          </div>
+          <label for="login-username">Email or username</label>
+          <div class="login-input-wrap"><span class="login-field-icon" aria-hidden="true">ID</span><input id="login-username" name="username" type="text" autocomplete="username" required maxlength="256"></div>
+          <label for="login-password">Password</label>
+          <div class="password-field">
+            <span class="login-field-icon" aria-hidden="true">KEY</span>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="256">
+            <button id="toggle-password" class="password-toggle" type="button" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <p id="login-error" class="login-error" role="alert" hidden></p>
+          <div id="login-progress" class="login-progress" aria-live="polite" aria-atomic="true" hidden><span class="login-progress-mark" aria-hidden="true"></span><span id="login-progress-text"></span></div>
+          <button id="login-submit" class="button button-primary login-submit" type="submit"><span id="login-submit-label">Sign in</span><span class="login-submit-spinner" aria-hidden="true" hidden></span></button>
+          <div id="login-terminal" class="login-terminal" aria-live="polite" aria-label="Sign-in status log" hidden></div>
+        </form>
+        <p class="login-security"><span></span> Protected session issued after sign-in</p>
+        <a class="registry-entry-link" href="/sector-registry">Request a new sector account</a>
+      </section>
+      <p class="login-footer" aria-hidden="true">BEYOND THE FRAME <span>•</span> VISUAL DETECTION ONLY <span>•</span> VERIFY ALERT EVIDENCE</p>
+    </main>
+    <div id="login-welcome-overlay" class="login-welcome-overlay" aria-live="polite" aria-hidden="true"><p>Welcome back, Operator.</p></div>
+
+    <main id="registry-view" class="entry-view registry-view" hidden>
+      <section class="login-card registry-card" aria-labelledby="registry-title">
+        <div class="registry-orbit-bg" aria-hidden="true"><span></span><i></i><b></b></div>
+        <div class="login-brand"><span class="brand-mark login-mark" aria-hidden="true">BF</span><p class="brand-name">BEYOND THE FRAME</p><p class="brand-caption">HEADQUARTERS SECTOR REGISTRY</p></div>
+        <div class="login-heading"><p class="eyebrow">SECTOR REGISTRATION</p><h1 id="registry-title">Request access</h1><p>Complete the three steps to send your sector request for HQ review.</p></div>
+        <ol id="registry-form-stepper" class="registry-stepper" aria-label="Registration progress">
+          <li class="active" data-reg-step-indicator="1"><span>1</span><strong>Sector head</strong></li><li data-reg-step-indicator="2"><span>2</span><strong>Technical team</strong></li><li data-reg-step-indicator="3"><span>3</span><strong>Sector address</strong></li>
+        </ol>
+        <form id="sector-registration-form" class="registry-form" novalidate>
+          <section class="registry-step" data-reg-step="1" aria-labelledby="registry-step-one-title">
+            <h2 id="registry-step-one-title">Sector and sector head</h2>
+            <label for="registry-sector">Sector name / number</label><input id="registry-sector" class="text-input" list="registry-sector-options" required maxlength="80" autocomplete="off" placeholder="Enter the HQ sector name or number" aria-describedby="registry-sector-help"><datalist id="registry-sector-options"></datalist><p id="registry-sector-help" class="input-help">Type the sector name or ID configured by Headquarters. Suggestions are provided; the server validates the value.</p>
+            <div class="registry-fields-three">
+              <div><label for="registry-head-name">Sector head name</label><input id="registry-head-name" class="text-input" required maxlength="120" autocomplete="name"></div>
+              <div><label for="registry-head-id">Sector head ID</label><input id="registry-head-id" class="text-input" required minlength="7" maxlength="7" pattern="[0-9]{7}" inputmode="numeric" title="Enter exactly 7 digits" autocomplete="off"></div>
+              <div><label for="registry-head-rank">Rank</label><input id="registry-head-rank" class="text-input" required maxlength="80"></div>
+            </div>
+            <label for="registry-head-phone">Sector-head phone number</label><input id="registry-head-phone" class="text-input" type="tel" required maxlength="32" autocomplete="tel" placeholder="+91 98765 43210"><label for="registry-head-email">Sector head email</label><input id="registry-head-email" class="text-input" type="email" autocomplete="email" required maxlength="254" placeholder="name@example.com"><p id="registry-email-status" class="registry-inline-status" role="status" aria-live="polite">HQ will email the approved invitation here. The phone number is collected as contact information only; no OTP or SMS is sent.</p>
+            <div id="registry-head-document-wrap"><label for="registry-head-document">Sector head work ID card (JPEG, PNG, or PDF · max 5 MiB)</label><input id="registry-head-document" class="text-input" type="file" accept="image/jpeg,image/png,application/pdf" required><p class="input-help">HQ manually reviews this work ID. It is encrypted; rejected documents are removed after a decision, and approved documents are available only to the assigned HQ reviewer for up to 30 days. Do not upload Aadhaar.</p></div>
+            <div class="registry-step-actions"><span></span><button id="registry-next-step" class="button button-primary" type="button">Continue to technical team →</button></div>
+          </section>
+          <section class="registry-step" data-reg-step="2" aria-labelledby="registry-step-two-title" hidden>
+            <h2 id="registry-step-two-title">Technical team details</h2>
+            <p class="registry-step-copy">Add both technical members and upload each person’s work ID card.</p>
+            <div class="registry-member-grid">
+              <fieldset><legend>Technical member 1</legend><label for="registry-tech1-name">Full name</label><input id="registry-tech1-name" data-reg-member="technical1" data-reg-field="full_name" class="text-input" required maxlength="120"><label for="registry-tech1-id">Member ID</label><input id="registry-tech1-id" data-reg-member="technical1" data-reg-field="member_id" class="text-input" required minlength="7" maxlength="7" pattern="[0-9]{7}" inputmode="numeric" title="Enter exactly 7 digits"><label for="registry-tech1-rank">Rank</label><input id="registry-tech1-rank" data-reg-member="technical1" data-reg-field="rank" class="text-input" required maxlength="80"><label for="registry-tech1-document">Work ID card (max 5 MiB)</label><input id="registry-tech1-document" class="text-input" type="file" accept="image/jpeg,image/png,application/pdf" required></fieldset>
+              <fieldset><legend>Technical member 2</legend><label for="registry-tech2-name">Full name</label><input id="registry-tech2-name" data-reg-member="technical2" data-reg-field="full_name" class="text-input" required maxlength="120"><label for="registry-tech2-id">Member ID</label><input id="registry-tech2-id" data-reg-member="technical2" data-reg-field="member_id" class="text-input" required minlength="7" maxlength="7" pattern="[0-9]{7}" inputmode="numeric" title="Enter exactly 7 digits"><label for="registry-tech2-rank">Rank</label><input id="registry-tech2-rank" data-reg-member="technical2" data-reg-field="rank" class="text-input" required maxlength="80"><label for="registry-tech2-document">Work ID card (max 5 MiB)</label><input id="registry-tech2-document" class="text-input" type="file" accept="image/jpeg,image/png,application/pdf" required></fieldset>
+            </div>
+            <p class="input-help">Only work ID cards are requested. Each file is encrypted. Approved documents remain available only to the assigned HQ reviewer for up to 30 days; rejected or expired files are purged.</p>
+            <div class="registry-step-actions"><button class="button button-secondary" type="button" data-reg-back>← Back</button><button id="registry-technical-next" class="button button-primary" type="button">Continue to sector address →</button></div>
+          </section>
+          <section class="registry-step" data-reg-step="3" aria-labelledby="registry-step-three-title" hidden>
+            <h2 id="registry-step-three-title">Sector address and base-camp location</h2>
+            <label for="registry-sector-address">Sector address</label><input id="registry-sector-address" class="text-input" required maxlength="240" autocomplete="street-address" placeholder="Office / sector location address">
+            <fieldset class="registry-location-picker"><legend>📍 Choose one base-camp location method</legend><div class="registry-location-methods"><label class="registry-location-method"><input type="radio" name="registry-location-source" value="DEVICE_HARDWARE"><span><strong>A · Detect system location</strong><small>Use device location only after you allow the browser prompt.</small></span></label><label class="registry-location-method"><input type="radio" name="registry-location-source" value="ADDRESS_GEOCODING"><span><strong>B · Plot to entered address</strong><small>Resolve the address you entered and verify the map result.</small></span></label><label class="registry-location-method"><input type="radio" name="registry-location-source" value="MANUAL_MAP_CLICK"><span><strong>C · Manual map pin</strong><small>Click the exact camp point on the map.</small></span></label></div><div class="registry-location-actions"><button id="registry-use-device-location" class="button button-secondary" type="button">Detect system location</button><button id="registry-resolve-address" class="button button-secondary" type="button">Resolve address</button></div><p class="input-help">Address lookup sends the address to the OpenStreetMap Nominatim service. Verify the result before continuing.</p><div id="registry-basecamp-map" class="registry-basecamp-map" aria-label="Choose the sector base-camp location on the map"></div><div class="registry-basecamp-coordinates"><label>Latitude<input id="registry-base-lat" class="text-input" type="text" readonly aria-readonly="true"></label><label>Longitude<input id="registry-base-lon" class="text-input" type="text" readonly aria-readonly="true"></label></div><input id="registry-location-method" type="hidden" value=""><input id="registry-resolved-address" type="hidden" value=""><input id="registry-location-token" type="hidden" value=""><p id="registry-basecamp-status" class="input-help" role="status" aria-live="polite">Select a method to place the 📍 pin. A locked location is required before submission.</p></fieldset>
+            <div class="registry-step-actions"><button class="button button-secondary" type="button" data-reg-back>← Back</button><button id="registry-submit" class="button button-primary" type="submit">Submit for HQ review</button></div>
+          </section>
+          <p id="registry-submit-error" class="login-error" role="alert" hidden></p>
+        </form>
+        <section class="registry-step registry-complete" id="registry-confirmation" aria-labelledby="registry-confirmation-title" hidden>
+          <div class="registry-complete-mark" aria-hidden="true">✓</div><p class="eyebrow">REQUEST RECEIVED</p><h2 id="registry-confirmation-title">Sent for HQ review</h2><p id="registry-submit-status" class="registry-complete-status" role="status" aria-live="polite"></p><p class="registry-step-copy">HQ will manually review all three members and work ID cards. If approved, an invitation with a one-time password will be emailed to the sector head. First login requires setting a new password.</p><a class="button button-primary registry-login-button" href="/login">Go to login</a>
+        </section>
+        <a class="registry-entry-link" href="/login">Back to sign in</a>
+      </section>
+    </main>
+
+    <div id="dashboard-view" class="app-shell" hidden>
+      <header class="topbar">
+        <a class="brand" href="/dashboard" data-app-route aria-label="Beyond the Frame dashboard">
+          <span class="brand-mark" aria-hidden="true">BF</span>
+          <span>
+            <span class="brand-name">BEYOND THE FRAME</span>
+            <span class="brand-caption">Reliability-Aware Temporal Evidence Fusion</span>
+          </span>
+        </a>
+        <div class="topbar-right">
+          <span class="api-indicator"><span id="health-dot" class="health-dot"></span><span id="health-text">Connecting</span></span>
+          <a class="notification-button" href="/alerts" data-app-route aria-label="View active alerts"><span aria-hidden="true">🔔</span><span id="notification-count" class="notification-count" hidden>0</span></a>
+          <button id="theme-toggle" class="theme-toggle-button" type="button" aria-label="Switch to light mode" title="Switch to light mode"><svg id="theme-toggle-sun" class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg><svg id="theme-toggle-moon" class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M20.2 15.4A8.6 8.6 0 0 1 8.6 3.8 8.8 8.8 0 1 0 20.2 15.4Z"></path></svg></button>
+          <details class="account-menu">
+            <summary><span id="user-avatar" class="user-avatar" aria-hidden="true">A</span><span id="authenticated-username" class="authenticated-username"></span><span class="account-chevron" aria-hidden="true">⌄</span></summary>
+            <div class="account-dropdown">
+              <button id="new-analysis" class="button button-quiet" type="button">New analysis</button>
+              <button id="logout-button" class="button button-quiet" type="button">Logout</button>
+            </div>
+          </details>
+        </div>
+      </header>
+
+      <div class="dashboard-layout">
+        <aside class="dashboard-sidebar" aria-label="Application navigation">
+          <nav>
+              <a class="nav-link" href="/dashboard" data-navigation="dashboard" aria-current="page"><span aria-hidden="true">▦</span>Dashboard</a>
+              <a class="nav-link" href="/sector-dashboard" data-navigation="sector-dashboard" hidden><span aria-hidden="true">⌖</span>My Sector</a>
+              <a class="nav-link" href="/headquarters-sectors" data-navigation="headquarters-sectors" data-hq-navigation hidden><span aria-hidden="true">▦</span>HQ Sector Setup</a>
+              <a class="nav-link" href="/headquarters-drones" data-navigation="headquarters-drones" data-hq-navigation hidden><span aria-hidden="true">⌖</span>Authorized Drones</a>
+              <a class="nav-link" href="/headquarters-users" data-navigation="headquarters-users" data-hq-navigation hidden><span aria-hidden="true">♙</span>Sector Users</a>
+              <a class="nav-link" href="/photo-detection" data-navigation="photo-detection"><span aria-hidden="true">▧</span>Photo Detection</a>
+              <a class="nav-link" href="/live-cctv" data-navigation="cctv"><span aria-hidden="true">◷</span>Live CCTV</a>
+              <a class="nav-link" href="/video-analysis" data-navigation="video-analysis"><span aria-hidden="true">▣</span>Video Analysis</a>
+              <a class="nav-link" href="/results" data-navigation="results"><span aria-hidden="true">▤</span>Results</a>
+              <a class="nav-link" href="/history" data-navigation="history"><span aria-hidden="true">◴</span>History</a>
+              <a class="nav-link" href="/alerts" data-navigation="alerts"><span aria-hidden="true">♧</span>Alerts</a>
+              <a class="nav-link" href="/reports" data-navigation="reports"><span aria-hidden="true">▤</span>Reports</a>
+              <a class="nav-link" href="/authorization" data-navigation="authorization"><span aria-hidden="true">⌖</span>Authorization Simulation</a>
+              <a class="nav-link" href="/settings" data-navigation="settings"><span aria-hidden="true">⚙</span>Settings</a>
+          </nav>
+        </aside>
+
+      <main id="dashboard-overview" class="page-content">
+        <section id="global-error" class="notice notice-error" role="alert" hidden></section>
+        <section id="hq-admin-overview" class="hq-admin-overview" aria-labelledby="hq-dashboard-title" hidden>
+          <header class="hq-dashboard-heading">
+            <div><p class="eyebrow">HEADQUARTERS · CONTROL CENTER</p><h1 id="hq-dashboard-title">Administration dashboard</h1><p class="hero-copy">Manage official sectors, authorized aircraft, and sector accounts from one place.</p></div>
+            <span class="hq-dashboard-live"><i></i> HQ account active</span>
+          </header>
+          <div class="hq-admin-stat-grid" aria-label="Headquarters summary">
+            <a class="hq-admin-stat" href="/headquarters-sectors" data-route-link="/headquarters-sectors" aria-label="Open HQ Sector Setup">
+              <span class="hq-admin-stat-icon" aria-hidden="true">▦</span><span><span class="hq-admin-stat-label">Approved sectors</span><strong id="hq-stat-sectors">—</strong><small>HQ-approved sector accounts</small></span>
+            </a>
+            <a class="hq-admin-stat" href="/headquarters-drones" data-route-link="/headquarters-drones" aria-label="Open Authorized Drones">
+              <span class="hq-admin-stat-icon" aria-hidden="true">⌖</span><span><span class="hq-admin-stat-label">Authorized drones</span><strong id="hq-stat-drones">—</strong><small>Registered by sector</small></span>
+            </a>
+            <a class="hq-admin-stat" href="/headquarters-users" data-route-link="/headquarters-users" aria-label="Open Sector Users">
+              <span class="hq-admin-stat-icon" aria-hidden="true">♙</span><span><span class="hq-admin-stat-label">Approved sector members</span><strong id="hq-stat-users">—</strong><small>Registered operators across sectors</small></span>
+            </a>
+            <a class="hq-admin-stat hq-admin-stat-attention" href="/headquarters-users" data-route-link="/headquarters-users" aria-label="Review pending sector requests">
+              <span class="hq-admin-stat-icon" aria-hidden="true">⌛</span><span><span class="hq-admin-stat-label">Pending reviews</span><strong id="hq-stat-pending">—</strong><small>Requests for HQ approval</small></span>
+            </a>
+          </div>
+          <section class="panel dashboard-shortcuts" aria-labelledby="hq-analysis-shortcuts-title">
+            <div class="section-heading"><div><p class="eyebrow">ANALYSIS WORKSPACES</p><h2 id="hq-analysis-shortcuts-title">Start an analysis</h2></div></div>
+            <div class="dashboard-shortcut-links">
+              <a class="button button-secondary" href="/live-cctv" data-route-link="/live-cctv">Analyze through CCTV</a>
+              <a class="button button-secondary" href="/video-analysis" data-route-link="/video-analysis">Analyze uploaded video</a>
+            </div>
+          </section>
+          <section class="panel dashboard-trend-panel">
+            <div class="section-heading"><div><p class="eyebrow">CROSS-SECTOR ACTIVITY</p><h2>Daily detection and review-alert trends</h2></div></div>
+            <p id="hq-trend-status" class="input-help" role="status" aria-live="polite">Loading report-derived trends…</p>
+            <div id="hq-dashboard-trends" class="dashboard-trends" hidden></div>
+            <p class="input-help">Review-alert indicators are system-generated review signals, not verified drone identifications or active incidents.</p>
+          </section>
+          <div class="hq-admin-dashboard-grid">
+            <section class="panel hq-dashboard-panel"><div class="section-heading"><div><p class="eyebrow">WORKSPACES</p><h2>Headquarters management</h2></div></div>
+              <a class="hq-dashboard-link" href="/headquarters-sectors" data-route-link="/headquarters-sectors"><span class="hq-dashboard-link-icon">▦</span><span><strong>HQ Sector Setup</strong><small>Draw and maintain official sector boundaries</small></span><b>›</b></a>
+              <a class="hq-dashboard-link" href="/headquarters-drones" data-route-link="/headquarters-drones"><span class="hq-dashboard-link-icon">⌖</span><span><strong>Authorized Drones</strong><small>Review device registrations by sector</small></span><b>›</b></a>
+              <a class="hq-dashboard-link" href="/headquarters-users" data-route-link="/headquarters-users"><span class="hq-dashboard-link-icon">♙</span><span><strong>Sector Users</strong><small>Review requests and approved sector members</small></span><b>›</b></a>
+              <a class="hq-dashboard-link" href="/history" data-route-link="/history"><span class="hq-dashboard-link-icon">◴</span><span><strong>Account History</strong><small>View activity belonging to this HQ account</small></span><b>›</b></a>
+            </section>
+            <section class="panel hq-dashboard-panel hq-dashboard-settings"><div class="section-heading"><div><p class="eyebrow">ACCOUNT</p><h2>System settings</h2></div></div>
+              <p class="input-help">Review the signed-in Headquarters account and service status.</p>
+              <dl class="compact-metadata"><div><dt>Signed in as</dt><dd id="hq-dashboard-username">N/A</dd></div><div><dt>Backend API</dt><dd id="hq-dashboard-api">N/A</dd></div></dl>
+              <a class="button button-secondary" href="/settings" data-route-link="/settings">Open settings</a>
+            </section>
+          </div>
+          <p id="hq-dashboard-status" class="input-help" role="status" aria-live="polite">Loading Headquarters summary…</p>
+        </section>
+        <section id="sector-operational-overview" class="sector-operational-overview" aria-labelledby="sector-dashboard-title" hidden>
+          <header class="hq-dashboard-heading">
+            <div><p class="eyebrow">SECTOR OPERATIONS</p><h1 id="sector-welcome-heading">Welcome</h1><h2 id="sector-dashboard-title">Sector dashboard</h2><p class="hero-copy">Operational summaries are limited to this account’s assigned sector and owned analysis runs.</p></div>
+            <span class="simulation-badge">SECTOR-ONLY VIEW</span>
+          </header>
+          <div class="sector-dashboard-stat-grid" aria-label="Sector operational summary">
+            <article class="sector-dashboard-stat"><span class="hq-admin-stat-label">Authorized devices</span><strong id="sector-stat-devices">—</strong><small>Approved and currently valid</small></article>
+            <a class="sector-dashboard-stat" href="/results" data-route-link="/results"><span class="hq-admin-stat-label">Recent tracks</span><strong id="sector-stat-tracks">—</strong><small>Across readable completed reports</small></a>
+            <a class="sector-dashboard-stat" href="/alerts" data-route-link="/alerts"><span class="hq-admin-stat-label">Review indicators</span><strong id="sector-stat-alerts">—</strong><small>Review signals, not active/verified alerts</small></a>
+            <a class="sector-dashboard-stat" href="/reports" data-route-link="/reports"><span class="hq-admin-stat-label">Completed analyses</span><strong id="sector-stat-completed">—</strong><small>Owned completed runs</small></a>
+          </div>
+          <div class="sector-dashboard-content-grid">
+            <section class="panel dashboard-trend-panel">
+              <div class="section-heading"><div><p class="eyebrow">LAST SEVEN DAYS</p><h2>Daily detection trend</h2></div></div>
+              <div id="sector-dashboard-detection-trend" class="dashboard-trends"></div>
+            </section>
+            <section class="panel dashboard-trend-panel">
+              <div class="section-heading"><div><p class="eyebrow">LAST SEVEN DAYS</p><h2>Review-alert trend</h2></div></div>
+              <div id="sector-dashboard-alert-trend" class="dashboard-trends"></div>
+              <p class="input-help">Signals are system-generated review indicators, not verified identifications or active incidents.</p>
+            </section>
+            <section class="panel sector-dashboard-activity">
+              <div class="section-heading"><div><p class="eyebrow">RECENT ACTIVITY</p><h2>Analysis runs</h2></div></div>
+              <div id="sector-dashboard-activity" class="dashboard-activity-list"><p class="empty-state">Loading sector activity…</p></div>
+            </section>
+            <section class="panel sector-dashboard-map-link">
+              <p class="eyebrow">ASSIGNED AREA</p><h2 id="sector-dashboard-area-name">Assigned sector map</h2>
+              <p id="sector-dashboard-area-status" class="input-help">Sector boundary details are loaded from Headquarters-approved geometry.</p>
+              <a class="button button-secondary" href="/sector-dashboard" data-route-link="/sector-dashboard">Open My Sector map</a>
+            </section>
+          </div>
+          <p id="sector-dashboard-summary-status" class="input-help" role="status" aria-live="polite">Loading sector summary…</p>
+        </section>
+        <div id="analysis-dashboard-workspace">
+        <section id="video-analysis" class="upload-section panel" aria-labelledby="upload-title">
+          <div class="source-row">
+            <div class="source-block">
+              <h3 class="source-block-title"><span class="section-dot">1</span> Input Source</h3>
+              <div class="source-options" role="group" aria-label="Input source">
+                <button id="source-upload" class="source-choice" type="button" aria-pressed="false">
+                  <span class="source-icon" aria-hidden="true">▣</span><span><strong>UPLOAD VIDEO</strong><small>Select a local video or sensor input</small></span>
+                </button>
+              </div>
+            </div>
+            <section id="upload-input" class="input-panel upload-inline" hidden aria-labelledby="upload-data-title">
+              <h3 id="upload-data-title"><span class="section-dot">2</span> Data Type</h3>
+              <div class="modality-options" role="group" aria-label="Uploaded data type">
+                <button class="modality-choice" type="button" data-input-type="rgb" aria-pressed="false">RGB</button>
+                <button class="modality-choice" type="button" data-input-type="thermal" aria-pressed="false">THERMAL</button>
+                <button class="modality-choice" type="button" data-input-type="radar" aria-pressed="false">RADAR</button>
+              </div>
+            </section>
+            <section id="file-picker-panel" class="file-picker-panel" hidden aria-label="Upload video">
+              <div class="file-picker-heading"><strong><span class="section-dot">3</span> Upload Video</strong><span>MP4, AVI, MOV, MKV · Max 250 MiB</span></div>
+              <div id="selected-file" class="selected-file" hidden>
+                <span class="file-icon" aria-hidden="true">▣</span>
+                <div><strong id="file-name"></strong><span id="file-type" class="muted"></span></div>
+                <label class="button button-secondary change-file" for="video-input">Change file</label>
+              </div>
+              <label id="drop-zone" class="drop-zone" for="video-input">
+                <span class="drop-title">Choose an input video</span>
+                <span class="button button-secondary">Browse files</span>
+                <input id="video-input" type="file" accept=".mp4,.avi,.mov,.mkv,video/mp4,video/x-msvideo,video/quicktime,video/x-matroska">
+              </label>
+              <button id="prepare-input" class="button button-quiet prepare-input-button" type="button" disabled>Prepare Input</button>
+            </section>
+            <button id="start-analysis-flow" class="button button-primary start-analysis-button" type="button" hidden disabled>▶ &nbsp; Start Analysis</button>
+          </div>
+
+          <section id="cctv-input" class="input-panel" hidden aria-labelledby="cctv-title">
+            <h3 id="cctv-title">Live CCTV connection</h3>
+            <label class="input-label" for="rtsp-url">RTSP URL</label>
+            <input id="rtsp-url" class="text-input" type="url" inputmode="url" autocomplete="off" placeholder="rtsp://camera-address:port/stream">
+            <p class="input-help">Credentials, if required, are used only for the connection and are not saved or returned.</p>
+            <div class="input-actions">
+              <button id="test-cctv" class="button button-quiet" type="button">Test connection</button>
+              <button id="start-cctv" class="button button-primary" type="button">Start live input</button>
+              <button id="stop-cctv" class="button button-quiet" type="button" disabled>Stop</button>
+            </div>
+            <p id="cctv-status" class="input-status" role="status">Not connected</p>
+          </section>
+
+          <section id="upload-status-panel" class="upload-status-panel" hidden>
+            <p id="modality-note" class="input-help">Choose a data type to continue.</p>
+            <div id="upload-progress-wrap" class="upload-progress-wrap" hidden>
+              <div class="progress-heading"><span id="upload-progress-label">Preparing input</span><strong id="upload-progress-value">0%</strong></div>
+              <progress id="upload-progress" max="100" value="0"></progress>
+            </div>
+            <div id="input-prepared" class="input-prepared" role="status" hidden></div>
+            <div id="reuse-suggestion" class="input-prepared" role="status" hidden>
+              <span id="reuse-suggestion-text"></span>
+              <button id="view-cached-results" class="button button-quiet" type="button" hidden>View cached results</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="monitor-workspace" aria-label="Video monitoring workspace">
+          <div class="monitor-primary-row">
+          <article class="player-card panel" aria-labelledby="player-title">
+            <div class="card-heading"><h2 id="player-title"><span class="section-dot">1</span> Input Video Player</h2><span id="player-source-status" class="status-tag">Awaiting input</span></div>
+            <div class="video-stage">
+              <video id="input-video-player" controls playsinline preload="metadata" aria-label="Selected input video player"></video>
+              <canvas id="video-trail-overlay" class="video-trail-overlay" aria-hidden="true"></canvas>
+              <div id="sensor-mode-transition" class="sensor-mode-transition" aria-hidden="true"></div>
+              <div id="video-player-empty" class="video-player-empty"><span aria-hidden="true">▷</span><strong>Input video player</strong><small>Select an uploaded video to preview it here.</small></div>
+              <span id="video-frame-overlay" class="video-frame-overlay" hidden>Frame — / — &nbsp; 00:00 / 00:00</span>
+            </div>
+            <div class="video-playback-controls" aria-label="Video playback controls">
+              <button id="video-play-toggle" class="video-play-toggle" type="button" aria-label="Play video" disabled>
+                <span id="video-play-toggle-icon" aria-hidden="true">▶</span>
+                <span id="video-play-toggle-label">Play video</span>
+              </button>
+              <button id="video-trajectory-toggle" class="video-trajectory-toggle" type="button" aria-pressed="false" disabled title="Show the selected track's image-plane path on the video">
+                <span class="trajectory-toggle-mark" aria-hidden="true"></span>
+                <span id="video-trajectory-toggle-label">Show trajectory</span>
+              </button>
+              <span id="video-playback-time" class="video-playback-time" aria-live="off">0:00 / 0:00</span>
+            </div>
+            <small class="playback-analysis-note">Video playback is separate from AI analysis; analysis status belongs to the selected run.</small>
+          </article>
+
+          <section id="dashboard-trajectory" class="trajectory-card panel" aria-labelledby="dashboard-trajectory-title">
+            <div class="card-heading"><h2 id="dashboard-trajectory-title">TRACK TRAJECTORY</h2></div>
+            <label class="trajectory-track-picker" for="dashboard-trajectory-track">Track
+              <select id="dashboard-trajectory-track" aria-label="Trajectory track" disabled>
+                <option value="">No tracks available</option>
+              </select>
+            </label>
+            <button id="dashboard-trajectory-preview" class="trajectory-preview" type="button" aria-label="Expand selected track trajectory" aria-haspopup="dialog" aria-expanded="false" disabled>
+              <span id="dashboard-trajectory-preview-content" class="trajectory-preview-empty">Select a completed run to view its stored trajectory.</span>
+            </button>
+            <p id="trajectory-waypoint-readout" class="trajectory-waypoint-readout" aria-live="polite">Hover or focus a trajectory point to inspect its frame and image-plane motion.</p>
+            <small class="trajectory-preview-hint">Select a track, then click the preview to expand.</small>
+          </section>
+          </div>
+
+          <div class="monitor-secondary-row">
+            <article class="info-card video-information-card panel">
+              <div class="card-heading"><h2>Video Information</h2></div>
+              <dl class="compact-metadata">
+                <div><dt>Filename</dt><dd id="video-info-filename">N/A</dd></div>
+                <div><dt>Original Video</dt><dd id="video-info-resolution">N/A</dd></div>
+                <div><dt>Prepared Frame</dt><dd id="video-info-prepared-resolution">N/A</dd></div>
+                <div><dt>Model Input</dt><dd id="video-info-model-resolution">N/A</dd></div>
+                <div><dt>FPS</dt><dd id="video-info-fps">N/A</dd></div>
+                <div><dt>Duration</dt><dd id="video-info-duration">N/A</dd></div>
+                <div><dt>Total Frames</dt><dd id="video-info-frames">N/A</dd></div>
+                <div><dt>File Size</dt><dd id="video-info-size">N/A</dd></div>
+                <div><dt>Format</dt><dd id="video-info-format">N/A</dd></div>
+                <div><dt>Input Type</dt><dd id="video-info-type">N/A</dd></div>
+              </dl>
+            </article>
+            <article class="info-card current-frame-card panel">
+              <div class="card-heading"><h2>Current Frame</h2></div>
+              <canvas id="current-frame-canvas" class="current-frame-preview" width="320" height="180" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open current frame detections" title="Click to inspect detections in this frame"></canvas>
+              <small class="current-frame-open-hint">Click the frame to inspect detected objects</small>
+              <dl class="compact-metadata current-frame-metadata">
+                <div><dt>Frame Index</dt><dd id="current-frame-index">N/A</dd></div>
+                <div><dt>Timestamp</dt><dd id="current-frame-timestamp">N/A</dd></div>
+                <div><dt>Status</dt><dd id="current-frame-status">Waiting</dd></div>
+                <div><dt>Resolution</dt><dd id="current-frame-resolution">N/A</dd></div>
+              </dl>
+              <div id="current-frame-detection-details" class="current-frame-detection-details" aria-live="polite">
+                <strong>Detection Details</strong>
+                <p>Stored tracked observations will appear after analysis completes.</p>
+              </div>
+              <small class="frame-mapping-note">Frame mapping uses video FPS and may be approximate for variable-frame-rate video; the timestamp is the current player time.</small>
+            </article>
+            <section id="active-alerts" class="rail-card alerts-card panel">
+              <div class="card-heading"><h2><span class="alert-icon active-alert-indicator" aria-hidden="true">●</span> ALERTS <span id="active-alert-count">(0)</span></h2></div>
+              <div id="active-alert-list" class="alert-empty">No active alerts</div>
+              <div class="alert-recent-heading"><h3>Recent Alerts</h3><span class="subtle">Run-derived</span></div>
+              <div class="table-scroll alert-table-scroll"><table class="alert-table">
+                <thead><tr><th>Time</th><th>Event</th><th>Severity</th></tr></thead>
+                <tbody id="recent-alert-rows"><tr><td colspan="3" class="alert-empty">No alert data</td></tr></tbody>
+              </table></div>
+              <div class="alert-pagination-footer">
+                <label class="rows-per-page">Rows per page <select id="alert-rows-per-page" aria-label="Alert rows per page"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option></select></label>
+                <span id="alert-pagination-summary">No alerts</span>
+                <nav id="alert-pagination" class="pagination" aria-label="Alert pages"></nav>
+              </div>
+            </section>
+            <section class="rail-card panel run-summary-card">
+              <div class="card-heading"><h2><span class="section-dot">◈</span> Run Summary</h2></div>
+              <dl class="summary-list">
+                <div><dt>Track IDs</dt><dd id="dashboard-total-objects">N/A</dd></div>
+                <div><dt id="dashboard-drones-label">Drones (UAV)</dt><dd id="dashboard-drones">N/A</dd></div>
+                <div><dt id="dashboard-birds-label">Birds</dt><dd id="dashboard-birds">N/A</dd></div>
+                <div><dt id="dashboard-uncertain-label">Uncertain</dt><dd id="dashboard-uncertain">N/A</dd></div>
+                <div><dt>Reliability (Avg)</dt><dd id="dashboard-reliability">N/A</dd></div>
+                <div><dt>Status</dt><dd id="dashboard-run-status">N/A</dd></div>
+              </dl>
+            </section>
+          </div>
+          <button id="generate-report" class="button report-button" type="button" disabled><span aria-hidden="true">▣</span> Generate Report</button>
+        </section>
+
+        <dialog id="trajectory-dialog" class="trajectory-dialog" aria-labelledby="trajectory-dialog-title">
+          <div class="trajectory-dialog-heading">
+            <div><p class="eyebrow">STORED IMAGE-PLANE DATA</p><h2 id="trajectory-dialog-title">Track trajectory</h2></div>
+            <button id="close-trajectory" class="button button-quiet" type="button">Back to dashboard</button>
+          </div>
+          <div id="trajectory-dialog-content"></div>
+        </dialog>
+
+        <dialog id="current-frame-dialog" class="current-frame-dialog" aria-labelledby="current-frame-dialog-title">
+          <div class="trajectory-dialog-heading">
+            <div><p class="eyebrow">FRAME EVIDENCE</p><h2 id="current-frame-dialog-title">Current frame detections</h2></div>
+            <button id="close-current-frame-dialog" class="button button-quiet" type="button">Close</button>
+          </div>
+          <p id="current-frame-dialog-meta" class="current-frame-dialog-meta"></p>
+          <div class="current-frame-dialog-content">
+            <div class="current-frame-dialog-image-wrap"><canvas id="current-frame-dialog-canvas" aria-label="Current frame with detected object boxes"></canvas></div>
+            <div id="current-frame-dialog-detections" class="current-frame-dialog-detections" aria-live="polite"></div>
+          </div>
+        </dialog>
+
+        <section id="analysis-timeline" class="analysis-timeline panel" aria-labelledby="analysis-timeline-title" aria-live="polite">
+          <div class="analysis-timeline-heading">
+            <div><p class="eyebrow">TOTAL RUN WALL-CLOCK TIME</p><h2 id="analysis-timeline-title">ANALYSIS TIMELINE</h2></div>
+            <div class="analysis-timeline-summary">
+              <strong id="analysis-timeline-duration"></strong>
+              <span id="analysis-timeline-actual-time"></span>
+              <span id="analysis-timeline-status" class="timeline-status"></span>
+            </div>
+          </div>
+          <ol id="analysis-timeline-stages" class="analysis-timeline-stages" aria-label="Analysis phase milestones" hidden>
+            <li data-timeline-stage="uploaded"><span class="timeline-marker" aria-hidden="true">○</span><span>Upload</span></li>
+            <li data-timeline-stage="detection"><span class="timeline-marker" aria-hidden="true">○</span><span>Detection</span></li>
+            <li data-timeline-stage="tracking"><span class="timeline-marker" aria-hidden="true">○</span><span>Tracking</span></li>
+            <li data-timeline-stage="temporal"><span class="timeline-marker" aria-hidden="true">○</span><span>Temporal</span></li>
+            <li data-timeline-stage="reliability"><span class="timeline-marker" aria-hidden="true">○</span><span>Reliability</span></li>
+            <li data-timeline-stage="evidence"><span class="timeline-marker" aria-hidden="true">○</span><span>Evidence</span></li>
+            <li data-timeline-stage="vlm"><span class="timeline-marker" aria-hidden="true">○</span><span>VLM</span></li>
+            <li data-timeline-stage="fusion"><span class="timeline-marker" aria-hidden="true">○</span><span>Fusion</span></li>
+            <li data-timeline-stage="assessment"><span class="timeline-marker" aria-hidden="true">○</span><span>Assessment</span></li>
+            <li data-timeline-stage="completed"><span class="timeline-marker" aria-hidden="true">○</span><span class="stage-label">Completed</span></li>
+          </ol>
+          <div id="analysis-timeline-endpoints" class="analysis-timeline-endpoints" hidden>
+            <span><strong>START · 00:00</strong> Upload / run creation</span>
+            <span id="analysis-timeline-endpoint">End</span>
+          </div>
+          <p id="analysis-timeline-empty" class="analysis-timeline-empty">No analysis run selected. Start an analysis to view elapsed time.</p>
+        </section>
+
+        <section id="run-section" class="run-section" aria-labelledby="run-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">LIVE STATUS</p><h2 id="run-title">Analysis Pipeline</h2></div>
+            <span id="run-status-badge" class="status-badge status-pending">Waiting</span>
+          </div>
+          <div class="run-meta panel" hidden>
+            <div><span>RUN ID</span><strong id="run-id">—</strong></div>
+            <div><span>CURRENT STAGE</span><strong id="run-stage">—</strong></div>
+            <div><span>STATUS</span><strong id="run-status-text">—</strong></div>
+            <div><span>PROGRESS</span><strong id="run-progress-text">0%</strong></div>
+            <progress id="run-progress" max="100" value="0"></progress>
+          </div>
+          <ol id="pipeline-stages" class="pipeline-stages" aria-label="Processing pipeline">
+            <li data-stage="uploaded"><button type="button" class="stage-button" data-stage-target="uploaded" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Upload</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="detection"><button type="button" class="stage-button" data-stage-target="detection" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Detection</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="tracking"><button type="button" class="stage-button" data-stage-target="tracking" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Tracking</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="temporal"><button type="button" class="stage-button" data-stage-target="temporal" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Temporal</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="reliability"><button type="button" class="stage-button" data-stage-target="reliability" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Reliability</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="evidence"><button type="button" class="stage-button" data-stage-target="evidence" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Evidence</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="vlm"><button type="button" class="stage-button" data-stage-target="vlm" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">VLM</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="fusion"><button type="button" class="stage-button" data-stage-target="fusion" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Fusion</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="assessment"><button type="button" class="stage-button" data-stage-target="assessment" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Assessment</span><span class="stage-state">Pending</span></button></li>
+            <li data-stage="completed"><button type="button" class="stage-button" data-stage-target="completed" aria-pressed="false"><span class="stage-icon">○</span><span class="stage-label">Completed</span><span class="stage-state">Pending</span></button></li>
+          </ol>
+          <button id="stop-analysis" class="button button-danger stop-analysis-button" type="button" hidden>Stop analysis</button>
+          <div id="concurrent-run-warning" class="notice notice-warning concurrent-run-warning" role="status" hidden>
+            <div id="concurrent-run-message"></div>
+            <button id="view-processing-run" class="button button-quiet" type="button" hidden>View Processing Run</button>
+          </div>
+          <div id="run-error" class="notice notice-error" role="alert" hidden></div>
+        </section>
+
+        <section id="phase-detail-area" class="phase-panels" aria-label="Selected phase details">
+          <div class="phase-detail-heading">
+            <h2 id="phase-detail-title">Selected Phase</h2>
+            <p id="phase-detail-message">Choose a stage in the analysis pipeline to view its controls or results.</p>
+          </div>
+          <nav id="thermal-debug-navigation" class="thermal-debug-navigation" aria-label="Thermal frame stages" hidden>
+            <button class="button button-quiet" type="button" data-thermal-stage-target="uploaded">Frame acquisition</button>
+            <button class="button button-quiet" type="button" data-thermal-stage-target="detection">Detection</button>
+            <button class="button button-quiet" type="button" data-thermal-stage-target="tracking">Tracking</button>
+          </nav>
+          <label id="phase-detail-track-picker" class="phase-detail-track-picker" hidden>
+            Track
+            <select id="phase-detail-track-select" aria-label="Track for phase details"></select>
+          </label>
+          <p id="phase-detail-empty" class="phase-detail-empty" role="status" hidden></p>
+          <div id="phase-detail-content" class="phase-detail-content" hidden></div>
+          <section id="phase3-panel" class="phase3-panel" aria-labelledby="phase3-title" hidden>
+            <div class="phase3-heading">
+              <div><p class="eyebrow">OPTIONAL DEBUG · PHASE 3</p><h3 id="phase3-title">Frame acquisition</h3></div>
+              <strong id="phase3-readiness" class="phase3-readiness">WAITING</strong>
+            </div>
+            <p id="phase3-guidance" class="input-help">Optional frame acquisition. Start Analysis runs the full pipeline for RGB and full-video detection/tracking for Thermal.</p>
+            <dl class="phase3-metadata">
+              <div><dt>SOURCE</dt><dd id="phase3-source">—</dd></div>
+              <div><dt>INPUT TYPE</dt><dd id="phase3-input-type">—</dd></div>
+              <div><dt>FRAME STATUS</dt><dd id="phase3-frame-status">Waiting</dd></div>
+              <div><dt>VALIDATION</dt><dd id="phase3-validation">Waiting</dd></div>
+              <div><dt>PREPROCESSING</dt><dd id="phase3-preprocessing">Waiting</dd></div>
+              <div><dt>FRAME INDEX</dt><dd id="phase3-frame-index">—</dd></div>
+              <div><dt>DIMENSIONS</dt><dd id="phase3-dimensions">—</dd></div>
+            </dl>
+            <img id="phase3-preview" class="phase3-preview" alt="Most recently prepared input frame" hidden>
+            <div class="input-actions">
+              <button id="phase3-acquire" class="button button-primary" type="button">Acquire next frame</button>
+              <button id="phase3-stop" class="button button-quiet" type="button">Stop frame source</button>
+            </div>
+          </section>
+          <section id="phase4-panel" class="phase3-panel" aria-labelledby="phase4-title" hidden>
+            <div class="phase3-heading">
+              <div><p class="eyebrow">OPTIONAL DEBUG · PHASE 4</p><h3 id="phase4-title">Single-frame detection</h3></div>
+              <strong id="phase4-status" class="phase3-readiness">WAITING</strong>
+            </div>
+            <p id="phase4-guidance" class="input-help">Single-frame detection uses the configured RGB detector or the separate Thermal Bird/Drone detector.</p>
+            <dl class="phase3-metadata">
+              <div><dt>MODEL</dt><dd id="phase4-model">Not loaded</dd></div>
+              <div><dt>INFERENCE</dt><dd id="phase4-inference">—</dd></div>
+              <div><dt>DETECTIONS</dt><dd id="phase4-count">—</dd></div>
+              <div><dt>FRAME</dt><dd id="phase4-frame">—</dd></div>
+              <div><dt>RESULTS</dt><dd id="phase4-results">No frame processed</dd></div>
+            </dl>
+            <img id="phase4-preview" class="phase3-preview" alt="Current frame with object detections" hidden>
+            <div class="input-actions">
+              <button id="phase4-detect" class="button button-primary" type="button">Detect next frame</button>
+            </div>
+          </section>
+          <section id="phase5-panel" class="phase3-panel" aria-labelledby="phase5-title" hidden>
+            <div class="phase3-heading">
+              <div><p class="eyebrow">OPTIONAL DEBUG · PHASE 5</p><h3 id="phase5-title">Frame-to-frame tracks</h3></div>
+              <strong id="phase5-status" class="phase3-readiness">WAITING</strong>
+            </div>
+            <p id="phase5-guidance" class="input-help">Single-frame tracking reuses the detector and keeps track IDs across frames. Thermal tracking stops at Phase 5.</p>
+            <dl class="phase3-metadata">
+              <div><dt>FRAME</dt><dd id="phase5-frame">—</dd></div>
+              <div><dt>ACTIVE TRACKS</dt><dd id="phase5-count">—</dd></div>
+              <div><dt>TRACK RESULTS</dt><dd id="phase5-results">No frame tracked</dd></div>
+            </dl>
+            <div class="input-actions">
+              <button id="phase5-track" class="button button-primary" type="button">Track next frame</button>
+              <button id="phase5-reset" class="button button-quiet" type="button">Reset tracking</button>
+            </div>
+          </section>
+          <section id="phase6-panel" class="phase3-panel" aria-labelledby="phase6-title" hidden>
+            <div class="phase3-heading">
+              <div><p class="eyebrow">OPTIONAL DEBUG · PHASE 6</p><h3 id="phase6-title">Track history and image-plane motion</h3></div>
+              <strong id="phase6-status" class="phase3-readiness">WAITING</strong>
+            </div>
+            <p class="input-help">Debug-only temporal analysis controls. Use Start Analysis for normal uploaded-video processing.</p>
+            <dl class="phase3-metadata">
+              <div><dt>FRAMES / SAMPLES</dt><dd id="phase6-frames">—</dd></div>
+              <div><dt>TIMING BASIS</dt><dd id="phase6-timing">—</dd></div>
+              <div><dt>TEMPORAL RESULTS</dt><dd id="phase6-results">No temporal history</dd></div>
+            </dl>
+          </section>
+        </section>
+
+        <section id="results-section" hidden aria-labelledby="results-title">
+          <div class="section-heading results-heading">
+            <div><p class="eyebrow">RUN-SCOPED RESULTS</p><h2 id="results-title">Analysis results</h2></div>
+            <span id="results-run-id" class="run-chip"></span>
+          </div>
+          <p id="thermal-run-note" class="input-prepared" role="status" hidden>Thermal results include detector observations, tracking, offline temporal consensus, and review alerts for Drone-class tracks. Alerts reflect detector output only; predicted classes are not verified ground truth. Reliability, evidence selection, VLM verification, fusion, and assessment are not run.</p>
+          <section id="results-library" class="results-library" aria-labelledby="results-library-title">
+            <div class="section-heading"><div><p class="eyebrow">STORED ANALYSES</p><h2 id="results-library-title">Results</h2></div></div>
+            <p id="results-date-filter" class="input-help results-date-filter" hidden></p>
+            <div id="results-run-cards" class="results-run-cards"><p class="empty-state">Load analysis history to view stored results.</p></div>
+          </section>
+          <div class="metric-grid" aria-label="Run summary">
+            <article class="metric-card metric-primary"><span class="metric-label">TOTAL TRACKS</span><strong id="total-tracks" class="metric-value">—</strong><span class="metric-note">In this uploaded video</span></article>
+            <article class="metric-card"><span class="metric-label">CONFIDENT TRACKS</span><strong id="confident-tracks" class="metric-value">—</strong><span class="metric-note">Reliability status: confident</span></article>
+            <article class="metric-card"><span class="metric-label">UNCERTAIN TRACKS</span><strong id="uncertain-tracks" class="metric-value">—</strong><span class="metric-note">Reliability status: uncertain</span></article>
+            <article class="metric-card"><span class="metric-label">VLM VERIFIED</span><strong id="vlm-tracks" class="metric-value">—</strong><span class="metric-note">Results actually present for this run</span></article>
+          </div>
+          <div class="summary-grid">
+            <article class="summary-card"><span class="metric-label">SELECTED EVIDENCE</span><strong id="evidence-summary">On demand</strong><p>Evidence is loaded when supported and requested. No evidence is not negative evidence.</p></article>
+            <article class="summary-card"><span class="metric-label">FUSION MODES</span><div id="fusion-modes" class="summary-breakdown"></div><p>Run-specific outputs; confidence values are decision scores, not calibrated probabilities.</p></article>
+            <article class="summary-card"><span class="metric-label">ASSESSMENT SUMMARY</span><strong id="alert-summary">Manual review</strong><p>Decision support only. No operational threat certainty is claimed.</p></article>
+          </div>
+
+          <section class="modality-section" aria-labelledby="modality-title">
+            <div class="section-heading"><div><p class="eyebrow">EVIDENCE LANDSCAPE</p><h2 id="modality-title">Modality status</h2></div><span class="subtle">Only evidence processed for this run is shown as available.</span></div>
+            <div class="modality-grid">
+              <article class="modality-card"><div class="modality-heading"><span class="modality-symbol symbol-rgb">RGB</span><span class="badge badge-validated">Available</span></div><h3>Video observations</h3><p>Detection and tracking from the uploaded video.</p></article>
+              <article class="modality-card"><div class="modality-heading"><span class="modality-symbol symbol-vlm">VLM</span><span id="run-vlm-badge" class="badge badge-unavailable">Unavailable</span></div><h3>Semantic verification</h3><p id="run-vlm-summary">VLM results are shown only when actually produced.</p></article>
+              <article class="modality-card"><div class="modality-heading"><span class="modality-symbol symbol-thermal">TH</span><span class="badge badge-limited">Not established</span></div><h3>Thermal</h3><p>Thermal evidence is not automatically associated with an uploaded video. Caltech spatial association remains unestablished.</p></article>
+              <article class="modality-card"><div class="modality-heading"><span class="modality-symbol symbol-radar">RD</span><span class="badge badge-limited">Not established</span></div><h3>Radar</h3><p>External validation exists, but Radar-to-Caltech-track association is not established.</p></article>
+            </div>
+          </section>
+
+          <section class="tracks-section" aria-labelledby="tracks-title">
+            <div class="section-heading tracks-heading"><div><p class="eyebrow">RUN-SCOPED RESULTS</p><h2 id="tracks-title">Detection Results <span id="track-count-label" class="count-pill">0</span></h2></div><button id="clear-filters" class="button button-quiet" type="button">Reset filters</button></div>
+            <div class="results-tabs" role="tablist" aria-label="Run result categories">
+              <button id="results-tab-detection" class="results-tab active" type="button" role="tab" aria-selected="true" data-results-tab="detection">Detection Results</button>
+              <button class="results-tab" type="button" role="tab" aria-selected="false" data-results-tab="tracking">Tracking Results</button>
+              <button class="results-tab" type="button" role="tab" aria-selected="false" data-results-tab="evidence">Evidence Frames</button>
+              <button class="results-tab" type="button" role="tab" aria-selected="false" data-results-tab="vlm">VLM Analysis</button>
+              <button class="results-tab" type="button" role="tab" aria-selected="false" data-results-tab="fusion">Fusion &amp; Assessment</button>
+            </div>
+            <div class="filter-bar">
+              <label class="search-field"><span class="sr-only">Search by track ID</span><span aria-hidden="true">⌕</span><input id="track-search" type="search" placeholder="Search by track ID" autocomplete="off"></label>
+              <label class="filter-select"><span class="sr-only">Filter by reliability status</span><select id="status-filter"><option value="">All statuses</option><option value="CONFIDENT">Confident</option><option value="UNCERTAIN">Uncertain</option></select></label>
+              <label class="filter-select"><span class="sr-only">Filter by class</span><select id="class-filter"><option value="">All classes</option></select></label>
+            </div>
+            <div class="table-frame">
+              <div class="table-scroll"><table>
+                <thead id="track-table-head"><tr><th>TRACK ID</th><th>CLASS</th><th>CONFIDENCE</th><th>BOUNDING BOX</th><th>FRAME</th><th>TIME (S)</th><th>RELIABILITY</th><th>STATUS</th><th>ACTIONS</th></tr></thead>
+                <tbody id="track-rows"><tr><td colspan="9" class="empty-state">Upload a video to begin a run.</td></tr></tbody>
+              </table></div>
+              <div class="table-footer"><label class="rows-per-page">Rows per page <select id="rows-per-page" aria-label="Rows per page"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option></select></label><span id="pagination-summary">No tracks</span><nav id="pagination" class="pagination" aria-label="Track table pages"></nav></div>
+            </div>
+            <div id="no-tracks" class="empty-state" hidden>No tracks match the current filters.</div>
+          </section>
+        </section>
+
+        <section id="history-section" class="history-section panel" aria-labelledby="history-title" hidden>
+          <div class="section-heading">
+            <div><p class="eyebrow">ACCOUNT HISTORY</p><h2 id="history-title">History</h2><p id="history-owner-label" class="input-help">Only this signed-in account’s analysis and login history is shown.</p></div>
+          </div>
+          <div class="results-tabs history-tabs" role="tablist" aria-label="History categories">
+            <button class="results-tab active" type="button" role="tab" aria-selected="true" data-history-tab="analysis">Analysis History</button>
+            <button class="results-tab" type="button" role="tab" aria-selected="false" data-history-tab="session">Session History</button>
+          </div>
+          <section id="analysis-history-panel" role="tabpanel" aria-label="Analysis History">
+            <div class="table-frame">
+              <div class="table-scroll"><table>
+                <thead><tr><th>VIDEO ID</th><th>RUN ID</th><th>INPUT TYPE</th><th>STATUS</th><th>STAGE</th><th>CREATED</th><th>ACTUAL ANALYSIS TIME</th><th>ACTIONS</th></tr></thead>
+                <tbody id="history-rows"><tr><td colspan="8" class="empty-state">Run history has not been loaded.</td></tr></tbody>
+              </table></div>
+              <div class="table-footer">
+                <label class="rows-per-page">Rows per page <select id="history-rows-per-page" aria-label="History rows per page"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option></select></label>
+                <span id="history-count" class="count-pill">0</span>
+                <span id="history-pagination-summary">No history entries</span>
+                <nav id="history-pagination" class="pagination" aria-label="Run history pages"></nav>
+              </div>
+            </div>
+          </section>
+          <section id="session-history-panel" role="tabpanel" aria-label="Session History" hidden>
+            <div class="table-frame">
+              <div class="table-scroll"><table>
+                <thead><tr><th>SESSION</th><th>LOGIN</th><th>LOGOUT</th><th>DURATION</th><th>STATUS</th></tr></thead>
+                <tbody id="session-history-rows"><tr><td colspan="5" class="empty-state">Session history has not been loaded.</td></tr></tbody>
+              </table></div>
+            </div>
+          </section>
+          <p id="history-error" class="notice notice-error" role="alert" hidden></p>
+        </section>
+
+        <section class="limitations-note">
+          <span class="note-mark" aria-hidden="true">i</span>
+          <div><strong>Research limitations are preserved.</strong> Reliability and fusion scores are not calibrated probabilities. Missing evidence is not negative evidence. VLM is unavailable unless actually executed. Thermal spatial association, Radar-to-Caltech-track association, and persistent Radar identity are not established.</div>
+        </section>
+        <footer class="page-footer"><span>BEYOND THE FRAME</span><span>Dynamic run review · decision support only</span></footer>
+        </div>
+      </main>
+      <main id="route-content" class="page-content route-content" hidden>
+        <p id="route-error" class="notice notice-error" role="alert" hidden></p>
+        <section data-route-page="live-cctv" hidden>
+          <div class="section-heading"><div><p class="eyebrow">LIVE SOURCE</p><h1>Live CCTV</h1></div></div>
+          <div id="live-cctv-slot"></div>
+        </section>
+        <section data-route-page="video-analysis" hidden>
+          <div class="section-heading"><div><p class="eyebrow">INPUT &amp; ANALYSIS</p><h1>Video Analysis</h1></div></div>
+          <div id="video-analysis-slot"></div>
+        </section>
+        <section data-route-page="photo-detection" hidden>
+          <div class="section-heading"><div><p class="eyebrow">SINGLE IMAGE · RGB</p><h1>Photo Detection</h1><p class="hero-copy">Upload one image to detect bird and drone candidates with the configured detector. Photo results are independent from video runs and have no track IDs or trajectory.</p></div></div>
+          <section class="panel photo-detection-panel" aria-labelledby="photo-input-title">
+            <div class="section-heading"><div><p class="eyebrow">STEP 1</p><h2 id="photo-input-title">Choose a photo</h2></div><span class="subtle">JPEG, PNG, or WebP · Max 20 MiB</span></div>
+            <label class="drop-zone photo-drop-zone" for="photo-input"><span class="drop-title">Select an image from your device</span><span class="button button-secondary">Browse photos</span><input id="photo-input" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"></label>
+            <p id="photo-file-name" class="input-help" aria-live="polite">No photo selected.</p>
+            <div class="input-actions"><button id="photo-detect-button" class="button button-primary" type="button" disabled>Detect objects</button><button id="photo-reset-button" class="button button-quiet" type="button" disabled>Clear</button></div>
+            <p id="photo-error" class="notice notice-error" role="alert" hidden></p>
+            <section id="photo-progress" class="photo-progress" aria-label="Photo detection progress" aria-live="polite" hidden>
+              <div class="photo-progress-heading"><strong id="photo-progress-message">Photo ready</strong><span id="photo-progress-elapsed">Elapsed 00:00</span></div>
+              <ol class="photo-progress-steps">
+                <li data-photo-stage="selected"><span class="photo-progress-marker">1</span><span><strong>Photo selected</strong><small>Ready to process</small></span></li>
+                <li data-photo-stage="detecting"><span class="photo-progress-marker">2</span><span><strong>Upload &amp; detection</strong><small>Waiting to start</small></span></li>
+                <li data-photo-stage="results"><span class="photo-progress-marker">3</span><span><strong>Results</strong><small>Waiting for detection</small></span></li>
+              </ol>
+            </section>
+          </section>
+          <section id="photo-results" class="panel photo-results" aria-labelledby="photo-results-title" hidden>
+            <div class="section-heading"><div><p class="eyebrow">STEP 2</p><h2 id="photo-results-title">Detection results</h2></div><div class="input-actions"><button id="photo-download-image" class="button button-secondary" type="button">Download annotated image</button><button id="photo-download-json" class="button button-quiet" type="button">Download results JSON</button></div></div>
+            <p id="photo-result-summary" class="input-help" aria-live="polite"></p>
+            <p id="photo-review-alert" class="notice notice-warning photo-review-alert" role="status" hidden></p>
+            <div id="photo-class-counts" class="photo-class-counts" aria-label="Detected class counts"></div>
+            <div class="photo-result-grid"><div class="photo-preview-wrap"><img id="photo-result-image" alt="Uploaded photo with numbered, class-colored detector boxes"></div><div><h3>Object-by-object results</h3><p class="input-help">Object numbers identify boxes in this photo only; they are not video track IDs.</p><div id="photo-detection-cards" class="photo-detection-cards"></div></div></div>
+          </section>
+        </section>
+        <section data-route-page="results" hidden>
+          <div class="section-heading"><div><p class="eyebrow">STORED ANALYSES</p><h1>Results</h1></div></div>
+          <div id="results-library-slot"></div>
+        </section>
+        <section data-route-page="result-detail" hidden>
+          <div class="section-heading"><div><p class="eyebrow">STORED RUN · READ ONLY</p><h1>Result Details</h1></div>
+            <button class="button button-quiet" type="button" data-route-link="/results">Back to Results</button></div>
+          <div id="result-detail-slot"></div>
+        </section>
+        <section data-route-page="history" hidden>
+          <div id="history-slot"></div>
+        </section>
+        <section data-route-page="alerts" hidden>
+          <div class="section-heading"><div><p class="eyebrow">RUN-SCOPED</p><h1>Alerts</h1></div></div>
+          <label class="filter-select alert-run-selector">Run
+            <select id="alert-run-select" aria-label="Select run for alerts"></select>
+          </label>
+          <p id="alerts-run-label" class="subtle">Select a run to view its alerts.</p>
+          <div id="alerts-slot"></div>
+        </section>
+        <section data-route-page="reports" hidden>
+          <div class="section-heading"><div><p class="eyebrow">PERSISTED REPORTS</p><h1>Reports</h1></div></div>
+          <div id="reports-run-cards" class="results-run-cards"><p class="empty-state">Load run history to view reports.</p></div>
+        </section>
+        <section data-route-page="report-detail" hidden>
+          <div class="section-heading"><div><p class="eyebrow">STORED REPORT · READ ONLY</p><h1>Report Details</h1></div>
+            <button class="button button-quiet" type="button" data-route-link="/reports">Back to Reports</button></div>
+          <div id="report-detail-summary" class="panel report-detail-summary"></div>
+          <div id="report-detail-slot"></div>
+        </section>
+        <section data-route-page="authorization" hidden>
+          <div class="section-heading"><div><p class="eyebrow">PHASE 10 · SIMULATION</p><h1>Authorized Drone Registry</h1><p class="hero-copy">Compare a simulated aircraft ID and GPS point with sector permissions. This does not determine whether an aircraft is hostile.</p></div><span class="simulation-badge">SIMULATED DATA</span></div>
+          <div class="authorization-layout">
+            <section class="panel authorization-map-panel" aria-labelledby="authorization-map-title">
+              <div class="section-heading"><div><p class="eyebrow">SECTOR COORDINATES</p><h2 id="authorization-map-title">Sector and geographic views</h2></div><span id="authorization-map-status" class="subtle">Waiting for scenario</span></div>
+              <details class="sector-config-details">
+                <summary>Configure this authority's sectors</summary>
+                <p class="input-help">Set the monitored rectangle and grid size. Settings save to this signed-in account; coordinates and registry cases remain synthetic.</p>
+                <div class="sector-config-grid">
+                  <label>Rows<input id="sector-rows" class="text-input" type="number" min="1" max="8" step="1"></label>
+                  <label>Columns<input id="sector-columns" class="text-input" type="number" min="1" max="8" step="1"></label>
+                  <label>South latitude<input id="sector-south" class="text-input" type="number" step="any"></label>
+                  <label>North latitude<input id="sector-north" class="text-input" type="number" step="any"></label>
+                  <label>West longitude<input id="sector-west" class="text-input" type="number" step="any"></label>
+                  <label>East longitude<input id="sector-east" class="text-input" type="number" step="any"></label>
+                </div>
+                <div class="input-actions"><button id="save-sector-config" class="button button-secondary" type="button">Save sector layout</button><span id="sector-config-status" class="input-help" role="status"></span></div>
+              </details>
+                            <div class="authorization-dual-view">
+                <section class="authorization-view-card" aria-labelledby="authorization-sector-view-title">
+                  <div class="authorization-view-heading"><h3 id="authorization-sector-view-title">Sector / Radar View</h3><span>Same simulated GPS coordinates</span></div>
+                  <div id="authorization-map" class="authorization-map" role="img" aria-label="Simulated configurable sector grid and drone trail"></div>
+                </section>
+                <section class="authorization-view-card" aria-labelledby="authorization-geographic-view-title">
+                  <div class="authorization-view-heading"><h3 id="authorization-geographic-view-title">Geographic Map</h3><span>OpenStreetMap · simulated location</span></div>
+                  <div id="authorization-leaflet-map" class="authorization-leaflet-map" aria-label="OpenStreetMap with configured sector boundaries and simulated drone position"></div>
+                  <p id="authorization-leaflet-fallback" class="authorization-map-fallback" hidden>Map tiles could not load. Check internet access; the sector/radar view remains available.</p>
+                </section>
+              </div>
+              <p class="input-help">Synthetic coordinates only. OpenStreetMap tiles show geography; no real GPS or live drone telemetry is connected.</p>
+            </section>
+            <section class="panel authorization-control-panel" aria-labelledby="authorization-replay-title">
+              <p class="eyebrow">REPLAY A CASE</p><h2 id="authorization-replay-title">Telemetry scenario</h2>
+              <label class="input-label" for="authorization-scenario">Scenario</label>
+              <select id="authorization-scenario" class="text-input"></select>
+              <button id="authorization-evaluate" class="button button-primary" type="button">Evaluate simulated point</button>
+              <div id="authorization-result" class="authorization-result" role="status" aria-live="polite">Select a scenario to inspect its registry and sector status.</div>
+            </section>
+          </div>
+          <section class="panel trajectory-classifier-panel" aria-labelledby="trajectory-classifier-title">
+            <div class="section-heading"><div><p class="eyebrow">GPS TRAJECTORY · REGISTERED DEVICES</p><h2 id="trajectory-classifier-title">Bird / drone motion estimate</h2><p class="input-help">Heuristic motion estimate only. It does not determine intent or trigger a physical response.</p></div><button id="refresh-trajectory-assessments" class="button button-secondary" type="button">Refresh tracks</button></div>
+            <p class="input-help">Submit a timestamped coordinate window for an HQ-approved device. This estimates motion patterns; it does not verify identity or hostile intent.</p>
+            <div class="trajectory-classifier-fields">
+              <label>Device type<select id="trajectory-device-type" class="text-input"><option value="flight_controller_serial">Flight controller serial</option><option value="gps_tracker_uuid">GPS tracker UUID</option></select></label>
+              <label>Registered device ID<input id="trajectory-device-id" class="text-input" maxlength="128" autocomplete="off" placeholder="FC-UNIT-01"></label>
+              <label>Track ID<input id="trajectory-track-id" class="text-input" maxlength="80" value="live-track-1"></label>
+            </div>
+            <label class="input-label" for="trajectory-points-input">Chronological points JSON</label>
+            <textarea id="trajectory-points-input" class="text-input trajectory-points-input" rows="6" spellcheck="false" placeholder='[{"latitude":17.38,"longitude":78.49,"altitude_m":120,"timestamp":"2026-10-24T10:00:00Z"},{"latitude":17.3801,"longitude":78.4901,"altitude_m":121,"timestamp":"2026-10-24T10:00:01Z"},{"latitude":17.3802,"longitude":78.4902,"altitude_m":121,"timestamp":"2026-10-24T10:00:02Z"}]'></textarea>
+            <div class="input-actions"><button id="classify-trajectory" class="button button-primary" type="button">Classify trajectory</button><span id="trajectory-classifier-status" class="input-help" role="status" aria-live="polite">No trajectory submitted in this session.</span></div>
+            <div id="trajectory-classifier-result" class="trajectory-classifier-result" role="status" aria-live="polite">Classification results appear here.</div>
+            <div id="trajectory-assessment-list" class="trajectory-assessment-list"></div>
+          </section>
+          <section class="panel authorization-registry-panel" aria-labelledby="authorization-registry-title">
+            <div class="section-heading"><div><p class="eyebrow">SYNTHETIC REGISTRY</p><h2 id="authorization-registry-title">Registered units</h2></div><span id="authorization-registry-count" class="subtle"></span></div>
+            <div id="authorization-registry" class="authorization-registry"></div>
+          </section>
+          <p class="notice notice-warning authorization-disclaimer">Simulation only — identity matching and sector permission are separate from visual Bird/Drone detection. Unknown, expired, out-of-area, or missing-GPS cases require review; none means hostile.</p>
+        </section>
+        <section data-route-page="headquarters-sectors" hidden>
+          <div class="section-heading"><div><p class="eyebrow">PHASE 10 · HEADQUARTERS</p><h1>Sector Configuration</h1><p class="hero-copy">Set the monitored boundary, then draw and assign each official sector directly on the map.</p></div><span class="simulation-badge">SETUP PREVIEW</span></div>
+          <div class="hq-sector-layout">
+            <section class="panel hq-sector-form-panel" aria-labelledby="hq-sector-form-title">
+              <p class="eyebrow">MONITORED AREA</p><h2 id="hq-sector-form-title">Boundary and sector assignment</h2>
+              <p class="input-help">Set the outer monitored rectangle. Use the map tool to draw each sector inside it, then assign a sector ID and name.</p>
+              <div class="sector-config-grid hq-sector-config-grid">
+                <label>South latitude<input id="hq-sector-south" class="text-input" type="number" min="-90" max="90" step="any"></label>
+                <label>North latitude<input id="hq-sector-north" class="text-input" type="number" min="-90" max="90" step="any"></label>
+                <label>West longitude<input id="hq-sector-west" class="text-input" type="number" min="-180" max="180" step="any"></label>
+                <label>East longitude<input id="hq-sector-east" class="text-input" type="number" min="-180" max="180" step="any"></label>
+              </div>
+              <div class="hq-sector-draw-tools"><button id="hq-sector-use-device-location" class="button button-secondary" type="button">Use device location as HQ pin</button><button id="hq-sector-place-location" class="button button-secondary" type="button">Set HQ location on map</button><span id="hq-sector-location-status" class="input-help" role="status"></span><button id="hq-sector-draw-toggle" class="button button-secondary" type="button">Draw sector area</button><span id="hq-sector-draw-status" class="input-help" role="status"></span><div class="hq-sector-assign-row"><label>Sector ID<input id="hq-sector-new-id" class="text-input" type="text" placeholder="S1"></label><label>Sector name<input id="hq-sector-new-name" class="text-input" type="text" placeholder="North Sector"></label><label>Covered villages / localities<input id="hq-sector-coverage" class="text-input" type="text" maxlength="240" placeholder="e.g. Nampally, Abids"></label><button id="hq-sector-add-area" class="button button-secondary" type="button" disabled>Add drawn area</button></div><div id="hq-sector-draft-list" class="hq-sector-list"></div></div><div class="input-actions"><button id="save-hq-sector-config" class="button button-primary" type="button">Save HQ sector setup</button><span id="hq-sector-config-status" class="input-help" role="status"></span></div>
+              <p id="hq-sector-updated-at" class="input-help">Loading the saved headquarters grid…</p>
+            </section>
+            <section class="panel hq-sector-map-panel" aria-labelledby="hq-sector-map-title">
+              <div class="section-heading"><div><p class="eyebrow">OPENSTREETMAP</p><h2 id="hq-sector-map-title">Geographic preview</h2></div><span id="hq-sector-count" class="subtle"></span></div>
+              <div id="hq-sector-leaflet-map" class="hq-sector-leaflet-map" aria-label="Map preview of Headquarters sector boundaries"></div>
+              <p id="hq-sector-map-fallback" class="authorization-map-fallback" hidden>Map tiles could not load. The sector list remains available.</p>
+              <p class="input-help">Road labels are not the selected city. Device location sets only the HQ pin; sector boundary coordinates stay unchanged until HQ edits and saves them.</p>
+            </section>
+          </div>
+          <section class="panel hq-sector-list-panel" aria-labelledby="hq-sector-list-title"><div class="section-heading"><div><p class="eyebrow">APPROVED ONLY</p><h2 id="hq-sector-list-title">Approved sectors</h2></div></div><p class="input-help">Only sectors with an active HQ-approved account appear here. Unapproved areas stay in the setup map for review and allocation.</p><div id="hq-sector-list" class="hq-sector-list"></div></section>
+        </section>
+        <section data-route-page="headquarters-drones" hidden>
+          <div class="section-heading"><div><p class="eyebrow">PHASE 10 · HEADQUARTERS</p><h1>Authorized Drones</h1><p class="hero-copy">Review the approved device registry grouped by its assigned sector.</p></div><span class="simulation-badge">REGISTRY SIMULATION</span></div>
+          <section class="panel hq-sector-list-panel"><div class="section-heading"><h2>Sector-wise registry</h2><button id="reload-hq-drones" class="button button-secondary" type="button">Refresh</button></div><p id="hq-drones-status" class="input-help" role="status"></p><div id="hq-drones-list" class="hq-sector-list"></div></section>
+          <p class="notice notice-warning authorization-disclaimer">Registry identity and GPS authorization are simulation data; this page does not receive live drone telemetry.</p>
+        </section>
+        <section data-route-page="headquarters-users" hidden>
+          <div class="section-heading"><div><p class="eyebrow">PHASE 10 · HEADQUARTERS</p><h1>Sector Users</h1><p class="hero-copy">View approved sector rosters and manage new account requests from one HQ workspace.</p></div><span class="simulation-badge">HQ ADMIN ONLY</span></div>
+          <section class="panel hq-sector-list-panel"><div class="section-heading"><h2>Approved sector members and shared accounts</h2><button id="reload-hq-users" class="button button-secondary" type="button">Refresh</button></div><p id="hq-users-status" class="input-help" role="status"></p><div id="hq-users-list" class="hq-sector-list hq-approved-sector-grid"></div><nav id="hq-users-pagination" class="hq-users-pagination" aria-label="Approved sector pages" hidden></nav></section>
+          <section class="panel hq-decommission-history-panel" aria-labelledby="hq-decommission-history-title"><div class="section-heading"><div><p class="eyebrow">PRESERVED AUDIT HISTORY</p><h2 id="hq-decommission-history-title">Decommissioned sectors</h2></div></div><div id="hq-decommission-history" class="hq-decommission-history-list"><p class="input-help">No sectors have been decommissioned.</p></div></section>
+          <section class="panel registry-review-panel" aria-labelledby="registry-review-title">
+            <div class="section-heading"><div><p class="eyebrow">HEADQUARTERS REVIEW</p><h2 id="registry-review-title">Sector registration requests</h2></div><button id="reload-registry-requests" class="button button-secondary" type="button">Refresh</button></div>
+            <p id="registry-review-status" class="input-help" role="status">Loading assigned requests…</p><div id="registry-review-list" class="registry-review-list"></div><div id="registry-credential-result" class="registry-credential-result" role="status" aria-live="polite"></div>
+            <h3 class="registry-subheading">Verified shared-account password-reset requests</h3><div id="password-reset-list" class="registry-review-list"></div>
+          </section>
+          <p class="notice notice-warning authorization-disclaimer">Work-ID access is limited to the assigned reviewer and audited. Account invitation email is sent only after Headquarters approval.</p>
+        </section>
+        <section data-route-page="sector-dashboard" hidden>
+          <div class="section-heading"><div><p class="eyebrow">SECTOR OPERATIONS</p><h1 id="sector-map-page-title">My Sector</h1><p class="hero-copy">This shared account can view only its assigned sector. Coordinates shown here are illustrative until trusted telemetry is connected.</p></div><span class="simulation-badge">SECTOR-ONLY VIEW</span></div>
+          <div class="sector-home-grid">
+            <section class="panel sector-home-summary"><p class="eyebrow">ASSIGNED AREA</p><h2 id="sector-home-name">Loading sector…</h2><p id="sector-home-identifier" class="input-help"></p><p id="sector-home-bounds" class="input-help"></p><div class="sector-location-control"><strong>Optional operator location</strong><p class="input-help">Share an approximate location with HQ on this device. Browser permission is requested only after you choose to share. You can remove it at any time.</p><button id="operator-location-toggle" class="button button-secondary" type="button">Share my approximate location</button><p id="operator-location-status" class="input-help" role="status" aria-live="polite">Location sharing is off.</p></div></section>
+            <section class="panel sector-home-map-panel"><div class="section-heading"><div><p class="eyebrow">SECTOR MAP</p><h2>Assigned boundary</h2></div><span class="simulation-badge">MAP PREVIEW</span></div><div id="sector-home-map" class="hq-sector-leaflet-map" aria-label="Map of this account's assigned sector"></div><p id="sector-home-map-fallback" class="authorization-map-fallback" hidden>Map tiles are unavailable. Sector boundary information remains listed.</p></section>
+            <section class="panel sector-track-panel" aria-labelledby="sector-track-title"><div class="section-heading"><div><p class="eyebrow">SECTOR-SCOPED TRACKS</p><h2 id="sector-track-title">Recent track assessments</h2></div><button id="sector-track-refresh" class="button button-secondary" type="button">Refresh</button></div><p id="sector-track-status" class="input-help" role="status" aria-live="polite">Loading tracks…</p><div id="sector-track-list" class="trajectory-assessment-list"></div></section>
+          </div>
+        </section>
+        <section data-route-page="settings" hidden>
+          <div class="section-heading"><div><p class="eyebrow">ACCOUNT &amp; SYSTEM</p><h1>Settings</h1></div></div>
+          <section class="panel settings-summary">
+            <h2>System status</h2>
+            <dl class="compact-metadata">
+              <div><dt>Account</dt><dd id="settings-username">N/A</dd></div>
+              <div><dt>Backend API</dt><dd id="settings-api-status">N/A</dd></div>
+            </dl>
+          </section>
+          <section class="panel settings-summary theme-settings" aria-labelledby="theme-settings-title">
+            <h2 id="theme-settings-title">Appearance</h2>
+            <p class="input-help">Choose the display palette for this device. Your choice is saved in this browser.</p>
+            <div class="theme-options" role="group" aria-label="Color theme">
+              <button class="theme-option" type="button" data-theme-choice="dark" aria-pressed="true">
+                <span class="theme-swatch theme-swatch-dark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span><strong>Dark theme</strong><small>Command Center Mode</small></span>
+              </button>
+              <button class="theme-option" type="button" data-theme-choice="light" aria-pressed="false">
+                <span class="theme-swatch theme-swatch-light" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span><strong>Light theme</strong><small>Field Operations Mode</small></span>
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+      </div>
+    </div>
+
+    <div id="detail-backdrop" class="detail-backdrop" hidden></div>
+    <aside id="detail-panel" class="detail-panel" aria-labelledby="detail-title" aria-hidden="true" inert>
+      <div class="detail-topbar"><div><p class="eyebrow">RUN-SCOPED TRACK DETAIL</p><h2 id="detail-title">Track <span id="detail-track-id">—</span></h2></div><button id="close-detail" class="close-button" type="button" aria-label="Close track details">×</button></div>
+      <div id="detail-content" class="detail-content"><p class="empty-state">Select a track from this run to inspect its evidence.</p></div>
+    </aside>
+    <dialog id="registry-id-preview" class="registry-id-preview" aria-labelledby="registry-id-preview-title">
+      <div class="registry-id-preview-heading"><div><p class="eyebrow">HEADQUARTERS REVIEW</p><h2 id="registry-id-preview-title">Work ID preview</h2></div><button id="close-registry-id-preview" class="close-button" type="button" aria-label="Close work ID preview">×</button></div>
+      <p id="registry-id-preview-status" class="input-help" role="status">Loading secure document…</p>
+      <div id="registry-id-preview-content" class="registry-id-preview-content"></div>
+    </dialog>
+    <dialog id="hq-sector-details-dialog" class="hq-sector-details-dialog" aria-labelledby="hq-sector-details-title">
+      <div class="registry-id-preview-heading"><div><p class="eyebrow">APPROVED SECTOR DETAILS</p><h2 id="hq-sector-details-title"></h2></div><button id="close-hq-sector-details" class="close-button" type="button" aria-label="Close sector details">×</button></div>
+      <div id="hq-sector-details-content" class="hq-sector-details-content"></div>
+    </dialog>
+    <dialog id="hq-personnel-document-preview" class="registry-id-preview" aria-labelledby="hq-personnel-document-title">
+      <div class="registry-id-preview-heading"><div><p class="eyebrow">HQ AUDITED PERSONNEL HISTORY</p><h2 id="hq-personnel-document-title">Historical work ID</h2></div><button id="close-hq-personnel-document" class="close-button" type="button" aria-label="Close historical work ID">×</button></div>
+      <p id="hq-personnel-document-status" class="input-help" role="status">Loading secure document…</p>
+      <div id="hq-personnel-document-content" class="registry-id-preview-content"></div>
+    </dialog>
+    <dialog id="forced-password-dialog" class="registry-id-preview forced-password-dialog" aria-labelledby="forced-password-title">
+      <div class="registry-id-preview-heading"><div><p class="eyebrow">FIRST-TIME PASSWORD SETUP</p><h2 id="forced-password-title">Set a new password</h2></div></div>
+      <form id="forced-password-form" class="forced-password-form" novalidate>
+        <div id="forced-current-password-wrap">
+          <label for="forced-current-password">Current or one-time password</label>
+          <input id="forced-current-password" class="text-input" type="password" autocomplete="current-password" required>
+        </div>
+        <label for="forced-new-password">New password</label>
+        <input id="forced-new-password" class="text-input" type="password" autocomplete="new-password" minlength="8" maxlength="12" required>
+        <p class="input-help">Use 8–12 characters, including at least one uppercase letter, one lowercase letter, one number, and one symbol.</p>
+        <label for="forced-confirm-password">Confirm new password</label>
+        <input id="forced-confirm-password" class="text-input" type="password" autocomplete="new-password" minlength="8" maxlength="12" required>
+        <p id="forced-password-error" class="login-error" role="alert" hidden></p>
+        <div class="input-actions"><button class="button button-primary" type="submit">Save password</button><button id="cancel-forced-password" class="button button-secondary" type="button">Cancel</button></div>
+      </form>
+    </dialog>
+  </body>
+</html>

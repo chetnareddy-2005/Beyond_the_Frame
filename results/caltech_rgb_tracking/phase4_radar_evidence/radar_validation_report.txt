@@ -1,0 +1,26 @@
+PHASE 4 RADAR VALIDATION
+========================
+
+Dataset: TSMS-Drone, Time-Synchronized Multi-Sensor Drone Dataset
+Official DOI: 10.25452/figshare.plus.30027313
+Local condition: Matrice 30, 28 m
+Source manifest: datasets/radar/tsms_drone/fmcw/28m/Matrice 30/metadata/source_manifest.json
+Raw MATLAB directory: datasets/radar/tsms_drone/fmcw/28m/Matrice 30/metadata/raw_mat
+Rendered PNG directory: datasets/radar/tsms_drone/fmcw/28m/Matrice 30/images
+
+Validation results:
+- 20 genuine rendered radar PNG files are available.
+- 20 genuine raw MAT files are available, with a matching PNG/MAT basename for each sample.
+- Each inspected raw MAT sample contains an RD matrix named "RD", shape 148x4096, dtype complex128.
+- The PNG samples are readable 227x227x3 uint8 images.
+- RadarAdapter is compatible with recording a sample reference (sample path, frame/sample index, sensor class, and known distance condition) while leaving timestamp, range, azimuth, target identity, and velocity unset. This establishes interface compatibility only; it does not associate a radar return with a Caltech object.
+
+Synchronization and association:
+- Per-sample radar timestamps are not present in the local source manifest.
+- A Caltech recording/trajectory identifier and cross-sensor synchronization metadata are not present.
+- The source manifest explicitly states that these samples are not temporally matched to the project RGB or Thermal recordings.
+- Association to the selected Caltech recording: NOT ESTABLISHED.
+- Association to Track 24: NOT ESTABLISHED.
+- Association to any specific Caltech RGB frame: NOT ESTABLISHED.
+
+No timestamps, range/velocity estimates, target identities, or cross-dataset associations were fabricated. No radar fusion was run.
